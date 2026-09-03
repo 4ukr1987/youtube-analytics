@@ -691,34 +691,6 @@ function openOAuthModal() {
             <a href="/terms" target="_blank" class="hover:text-slate-300 underline transition-colors">Условия сервиса</a>
           </div>
         </div>
-
-        <!-- Collapsible Developer Settings for Keys -->
-        <details class="group rounded-2xl border border-white/[0.06] bg-[#0d0e15] text-left transition-all">
-          <summary class="cursor-pointer p-3 text-[11px] font-medium text-slate-400 hover:text-slate-200 flex items-center justify-between select-none">
-            <span class="flex items-center gap-1.5">
-              <i data-lucide="key" class="w-3.5 h-3.5 text-slate-500"></i>
-              <span>Ключи Google Cloud Console</span>
-            </span>
-            <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-800/40">Подключено</span>
-          </summary>
-          <div class="p-3 pt-0 border-t border-white/[0.04] space-y-2.5 mt-2">
-            <form onsubmit="saveOAuthCredentialsForm(event)" class="space-y-2.5 text-xs">
-              <div>
-                <label class="text-[10px] text-slate-400 block mb-1">Client ID:</label>
-                <input type="text" id="oauthClientIdInput" placeholder="...apps.googleusercontent.com" class="w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none">
-              </div>
-              <div>
-                <label class="text-[10px] text-slate-400 block mb-1">Client Secret:</label>
-                <input type="password" id="oauthClientSecretInput" placeholder="GOCSPX-..." class="w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none">
-              </div>
-              <div class="text-[10px] text-slate-500 font-mono">Redirect: <code>http://127.0.0.1:8000/api/oauth/callback</code></div>
-              <button type="submit" class="w-full py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold">
-                Обновить ключи
-              </button>
-            </form>
-          </div>
-        </details>
-
       </div>
     `;
   }

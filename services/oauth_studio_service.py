@@ -190,11 +190,33 @@ class StudioAnalyticsService:
             except Exception:
                 pass
 
-        if code_verifier:
-            flow.code_verifier = code_verifier
-
-        flow.fetch_token(code=code)
-        self.credentials = flow.credentials
+        try:
+            flow.fetch_token(code=code)
+            self.credentials = flow.credentials
+        except Exception as fetch_err:
+            import requests
+            token_payload = {
+                'code': code,
+                'client_id': self.client_id,
+                'client_secret': self.client_secret,
+                'redirect_uri': redirect_uri,
+                'grant_type': 'authorization_code'
+            }
+            if code_verifier:
+                token_payload['code_verifier'] = code_verifier
+            resp = requests.post("https://oauth2.googleapis.com/token", data=token_payload, timeout=10)
+            if resp.status_code == 200:
+                t_json = resp.json()
+                self.credentials = Credentials(
+                    token=t_json.get('access_token'),
+                    refresh_token=t_json.get('refresh_token'),
+                    token_uri="https://oauth2.googleapis.com/token",
+                    client_id=self.client_id,
+                    client_secret=self.client_secret,
+                    scopes=SCOPES
+                )
+            else:
+                raise Exception(f"Token exchange failed: {fetch_err} | Direct error: {resp.text}")
 
         # Save credentials JSON to disk for persistent login
         os.makedirs(os.path.dirname(TOKEN_PATH), exist_ok=True)

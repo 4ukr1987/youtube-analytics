@@ -62,8 +62,10 @@ async def oauth_callback(request: Request, code: Optional[str] = None, error: Op
         return RedirectResponse(url="/?oauth_error=no_code")
 
     try:
-        # Determine current redirect URI based on request
-        redirect_uri = str(request.url).split('?')[0]
+        # Determine current redirect URI based on request (handle HTTPS behind Cloud Run proxy)
+        proto = request.headers.get("x-forwarded-proto", "https" if "run.app" in str(request.url) else request.url.scheme)
+        host = request.headers.get("x-forwarded-host", request.url.netloc)
+        redirect_uri = f"{proto}://{host}/api/oauth/callback"
         channel_info = studio_service.exchange_code_for_token(code=code, redirect_uri=redirect_uri)
         return RedirectResponse(url="/?oauth=success")
     except Exception as e:

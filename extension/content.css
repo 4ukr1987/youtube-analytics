@@ -1,0 +1,164 @@
+/* Floating Overlay Widget for YouTube Video Page (vidIQ / TubeBuddy Style) */
+
+#yt-analytics-growth-widget {
+  background: #0f0f14;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+}
+
+#yt-analytics-growth-widget:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.ytg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.ytg-title-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ytg-badge {
+  background: #1e1b4b;
+  color: #818cf8;
+  border: 1px solid #3730a3;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.ytg-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ytg-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ytg-stat-card {
+  background: #171822;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.ytg-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.ytg-stat-value {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: monospace;
+  color: #ffffff;
+}
+
+.ytg-stat-value.score {
+  color: #10b981;
+}
+
+.ytg-stat-value.vph {
+  color: #60a5fa;
+}
+
+.ytg-tags-section {
+  background: #171822;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.ytg-tags-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.ytg-tags-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-transform: uppercase;
+}
+
+.ytg-copy-btn {
+  background: #27273a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ytg-copy-btn:hover {
+  background: #3b82f6;
+}
+
+.ytg-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.ytg-tag-chip {
+  background: #0f1017;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.ytg-footer-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.ytg-footer-btn:hover {
+  opacity: 0.9;
+}

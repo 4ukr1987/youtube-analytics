@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Growth & Analytics Studio — Linear Grade Suite</title>
+  
+  <!-- Modern Inter & Plus Jakarta Sans typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS, Lucide Icons & Chart.js -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <link rel="stylesheet" href="style.css?v=5.0">
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- ==========================================================================
+       TOP HEADER & SMART OMNIBAR
+       ========================================================================== -->
+  <header class="h-14 border-b border-white/[0.08] bg-[#0d0e14]/90 backdrop-blur-md px-4 flex items-center justify-between gap-4 sticky top-0 z-40">
+    
+    <!-- Logo & Brand -->
+    <div class="flex items-center gap-3 shrink-0">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md">
+        <i data-lucide="play" class="w-4 h-4 fill-white"></i>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-sm text-white tracking-tight">Growth Studio</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-blue-950/80 text-blue-400 border border-blue-800/60 uppercase">PRO 3.0</span>
+      </div>
+    </div>
+
+    <!-- Smart Omnibar (Universal Auto-Routing Search) -->
+    <form onsubmit="handleOmnibarSubmit(event); return false;" class="flex-1 max-w-2xl relative hidden sm:block">
+      <div class="relative flex items-center">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none"></i>
+        <input 
+          type="text" 
+          id="omnibarInput" 
+          placeholder="Вставьте ссылку на видео, канал @handle или тему для поиска аномалий..." 
+          class="w-full bg-[#161720] border border-white/[0.08] rounded-lg pl-9 pr-24 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500/60 focus:bg-[#1c1d29] transition-all"
+        >
+        <div class="absolute right-2 flex items-center gap-1">
+          <kbd class="px-1.5 py-0.5 text-[9px] font-mono text-slate-400 bg-white/[0.06] border border-white/[0.08] rounded">↵ Enter</kbd>
+        </div>
+      </div>
+    </form>
+
+    <!-- System Status, DB Vault & OAuth -->
+    <div class="flex items-center gap-2.5 shrink-0">
+      <div id="dbVaultStatusBadge" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-blue-950/50 border border-blue-800/50 text-blue-300 text-xs font-mono" title="Локальная база данных SQLite активна (квота API экономится)">
+        <i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i>
+        <span id="dbVaultStatusText">База данных активна</span>
+      </div>
+      <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="apiStatusText">YouTube API Active</span>
+      </div>
+      <button onclick="openOAuthModal()" id="headerOAuthBtn" class="px-3 py-1 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-md text-xs font-medium text-slate-200 transition-colors flex items-center gap-1.5">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-400"></i>
+        <span id="headerOAuthText" class="hidden md:inline">Google OAuth</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN WORKSPACE (5-Hub Sidebar + Dynamic Content Canvas)
+       ========================================================================== -->
+  <div class="flex-1 flex flex-col md:flex-row">
+
+    <!-- 5 Super-Hubs Sidebar Navigation -->
+    <aside class="w-full md:w-60 bg-[#0d0e14] border-r border-white/[0.08] p-3 flex flex-col justify-between shrink-0">
+      
+      <div class="space-y-1">
+        <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2.5 py-1.5">Рабочие пространства</div>
+
+        <!-- 1. Video Studio Hub -->
+        <button onclick="switchHub('video_hub')" id="hubNav_video_hub" class="hub-nav-btn active">
+          <div class="hub-icon-wrapper">
+            <i data-lucide="video" class="w-4 h-4"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="truncate">Видео-Лаборатория</div>
+            <div class="text-[10px] text-slate-400 font-normal">SEO, Обложки, Текст</div>
+          </div>
+        </button>
+
+        <!-- 2. Channel Analytics Hub -->
+        <button onclick="switchHub('channel_hub')" id="hubNav_channel_hub" class="hub-nav-btn">
+          <div class="hub-icon-wrapper">
+            <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="truncate">Аналитика каналов</div>
+            <div class="text-[10px] text-slate-400 font-normal">Аудит, Часы, Норма</div>
+          </div>
+        </button>
+
+        <!-- 3. AI Creative Studio Hub -->
+        <button onclick="switchHub('ai_hub')" id="hubNav_ai_hub" class="hub-nav-btn">
+          <div class="hub-icon-wrapper">
+            <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+          </div>
+          <div class="flex-1 min-w-0 flex items-center justify-between">
+            <div>
+              <div class="truncate">AI-Студия & Сценарии</div>
+              <div class="text-[10px] text-slate-400 font-normal">Идеи дня, Сценарии</div>
+            </div>
+            <span class="px-1.5 py-0.2 bg-purple-950/60 text-purple-300 border border-purple-800/60 text-[9px] font-bold rounded">AI</span>
+          </div>
+        </button>
+
+        <!-- 4. Trends & Market Hub -->
+        <button onclick="switchHub('trends_hub')" id="hubNav_trends_hub" class="hub-nav-btn">
+          <div class="hub-icon-wrapper">
+            <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="truncate">Тренды & Ниши</div>
+            <div class="text-[10px] text-slate-400 font-normal">Аномалии, Ключевики</div>
+          </div>
+        </button>
+
+        <!-- 5. Database & Utilities Hub -->
+        <button onclick="switchHub('tools_hub')" id="hubNav_tools_hub" class="hub-nav-btn">
+          <div class="hub-icon-wrapper">
+            <i data-lucide="database" class="w-4 h-4 text-teal-400"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="truncate">База & Инструменты</div>
+            <div class="text-[10px] text-slate-400 font-normal">Watchlist, Массовый</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Footer Quick Presets -->
+      <div class="pt-3 border-t border-white/[0.08] space-y-2">
+        <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2.5">Быстрые пресеты</div>
+        <div class="flex flex-wrap gap-1 px-1">
+          <button onclick="quickSearch('https://www.youtube.com/watch?v=kUcQwawVaIE')" class="px-2 py-1 rounded bg-[#161720] hover:bg-[#1c1d29] border border-white/[0.06] text-[10px] text-slate-300 transition-colors">Демо Видео</button>
+          <button onclick="quickSearch('@veritasium')" class="px-2 py-1 rounded bg-[#161720] hover:bg-[#1c1d29] border border-white/[0.06] text-[10px] text-slate-300 transition-colors">@veritasium</button>
+          <button onclick="quickSearch('Искусственный интеллект')" class="px-2 py-1 rounded bg-[#161720] hover:bg-[#1c1d29] border border-white/[0.06] text-[10px] text-slate-300 transition-colors">Ниша: AI</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content Workspace Canvas -->
+    <main class="flex-1 p-4 md:p-6 overflow-y-auto max-w-7xl mx-auto w-full space-y-6">
+
+      <!-- ======================================================================
+           HUB 1: 🎥 ВИДЕО-ЛАБОРАТОРИЯ (Video Studio)
+           ====================================================================== -->
+      <section id="hubSection_video_hub" class="space-y-6">
+        
+        <!-- Hub Top Bar with Segmented Subtabs -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#12131b] border border-white/[0.08] p-3 rounded-xl shadow-sm">
+          <div>
+            <h1 class="text-sm md:text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="video" class="w-4 h-4 text-blue-400"></i>
+              Видео-Лаборатория (Video Studio)
+            </h1>
+            <p class="text-xs text-slate-400">Полный технический анализ, оптимизация превью, транскрибация и A/B сплит-тесты</p>
+          </div>
+
+          <!-- Segmented Subtabs Control -->
+          <div class="segmented-control" style="display: inline-flex; align-items: center; gap: 4px; background-color: #0b0c13; border: 1px solid rgba(255, 255, 255, 0.12); padding: 4px; border-radius: 10px;">
+            <button onclick="switchSubtab('video_hub', 'video_seo')" class="subtab-btn active" data-subtab="video_seo" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="scan-search" class="w-3.5 h-3.5"></i>
+              <span>SEO & Теги</span>
+            </button>
+            <button onclick="switchSubtab('video_hub', 'thumbnail_preview')" class="subtab-btn" data-subtab="thumbnail_preview" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="image" class="w-3.5 h-3.5"></i>
+              <span>Обложки & 3-Sec Тест</span>
+            </button>
+            <button onclick="switchSubtab('video_hub', 'transcripts')" class="subtab-btn" data-subtab="transcripts" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              <span>Транскрипт & Резюме</span>
+            </button>
+            <button onclick="switchSubtab('video_hub', 'ab_testing')" class="subtab-btn" data-subtab="ab_testing" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
+              <span>A/B Сплит-тест</span>
+            </button>
+            <button onclick="switchSubtab('video_hub', 'comments_mining')" class="subtab-btn" data-subtab="comments_mining" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="message-square" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Боли зрителей (Комментарии)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Video Context Banner (Persistent across subtabs) -->
+        <div id="activeVideoBanner" class="hidden p-3 rounded-xl bg-[#12131b] border border-blue-500/30 flex items-center justify-between gap-3 shadow-md">
+          <div class="flex items-center gap-3 min-w-0">
+            <img id="activeVideoBannerThumb" src="" alt="Active Video" class="w-16 h-10 object-cover rounded-lg border border-white/10 shrink-0">
+            <div class="min-w-0">
+              <div class="text-[10px] font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="check-circle" class="w-3 h-3 text-blue-400"></i>
+                <span>Активное видео в лаборатории:</span>
+              </div>
+              <div id="activeVideoBannerTitle" class="text-xs font-semibold text-white truncate max-w-xl"></div>
+            </div>
+          </div>
+          <span id="activeVideoBannerMeta" class="text-[11px] text-slate-400 font-mono shrink-0 hidden sm:inline px-2.5 py-1 bg-[#161720] rounded-md border border-white/[0.06]"></span>
+        </div>
+
+        <!-- Subpanel 1: SEO & Tags -->
+        <div class="subtab-panel space-y-6" data-panel="video_seo">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5">
+            <h2 class="text-sm font-bold text-white mb-1">SEO-Инспектор видео (0–100 Score)</h2>
+            <p class="text-xs text-slate-400 mb-3">Введите ссылку на любое видео YouTube для извлечения скрытых тегов и аудита метаданных</p>
+            <form onsubmit="analyzeVideoSearch(); return false;" class="flex gap-2">
+              <input 
+                type="text" 
+                id="videoUrlInput" 
+                placeholder="https://www.youtube.com/watch?v=kUcQwawVaIE или ID видео" 
+                class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+              >
+              <button type="submit" class="btn-primary">
+                <i data-lucide="search" class="w-3.5 h-3.5"></i>
+                <span>Инспектировать</span>
+              </button>
+            </form>
+          </div>
+          <div id="videoResultsContainer" class="space-y-6"></div>
+        </div>
+
+        <!-- Subpanel 2: Thumbnail Feed Simulator -->
+        <div class="subtab-panel hidden space-y-6" data-panel="thumbnail_preview">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-5">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="image" class="w-4 h-4 text-purple-400"></i>
+                  Симулятор ленты YouTube & Стресс-тест обложек
+                </h3>
+                <p class="text-xs text-slate-400">Проверьте, выделяется ли ваша обложка среди реальных конкурентов</p>
+              </div>
+              <div class="flex items-center gap-1.5 p-1 bg-[#161720] rounded-lg border border-white/[0.08]">
+                <button onclick="switchViewport('desktop')" id="vpBtn_desktop" class="vp-btn active">ПК Сетка (3×3)</button>
+                <button onclick="switchViewport('mobile')" id="vpBtn_mobile" class="vp-btn">Смартфон</button>
+                <button onclick="switchViewport('sidebar')" id="vpBtn_sidebar" class="vp-btn">Боковая колонка</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+              <div class="md:col-span-4 p-4 rounded-xl bg-[#161720] border-2 border-dashed border-slate-700 hover:border-purple-500/60 transition-colors text-center space-y-2 relative">
+                <input type="file" id="thumbFileInput" onchange="handleFileUpload(event)" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
+                <div class="w-10 h-10 rounded-full bg-purple-950/50 text-purple-400 flex items-center justify-center mx-auto">
+                  <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+                </div>
+                <div class="text-xs font-semibold text-slate-200">Перетащите обложку сюда</div>
+                <p class="text-[10px] text-slate-400">PNG, JPG, WEBP (16:9)</p>
+                <button type="button" class="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-md border border-slate-700">Выбрать файл</button>
+              </div>
+
+              <div class="md:col-span-8 space-y-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Заголовок вашего видео</label>
+                    <input type="text" id="mockTitleInput" oninput="handleMockMetaChange()" value="Я Проверил 7 Скрытых Нейросетей (Они Заменят 90% Профессий)" class="w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Имя вашего канала</label>
+                    <input type="text" id="mockChannelInput" oninput="handleMockMetaChange()" value="Мой YouTube Канал" class="w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500">
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
+                  <input type="text" id="mockNicheInput" value="Искусственный интеллект" placeholder="Ниша для загрузки конкурентов..." class="flex-1 w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500">
+                  <button onclick="loadCompetitorFeed()" class="btn-primary text-xs shrink-0 w-full sm:w-auto">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                    <span>Обновить ленту</span>
+                  </button>
+                  <button onclick="runAIThumbnailAudit()" class="btn-purple text-xs shrink-0 w-full sm:w-auto">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                    <span>AI-Аудит обложки</span>
+                  </button>
+                  <button onclick="generateAIThumbnailConcepts()" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white text-xs font-semibold shrink-0 w-full sm:w-auto flex items-center justify-center gap-1.5 shadow-md">
+                    <i data-lucide="palette" class="w-3.5 h-3.5"></i>
+                    <span>🎨 3 Концепта & Промпты</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stress tests toolbar -->
+            <div class="flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.08] pt-3">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-[11px] font-semibold uppercase text-slate-400">Стресс-тесты:</span>
+                <button onclick="toggleVisualFilter('blur')" id="filterBtn_blur" class="stress-btn">
+                  <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                  <span>👁️ Размытие (3-Sec Blur)</span>
+                </button>
+                <button onclick="toggleVisualFilter('grayscale')" id="filterBtn_gray" class="stress-btn">
+                  <i data-lucide="contrast" class="w-3.5 h-3.5"></i>
+                  <span>🖤 Ч/Б Контраст</span>
+                </button>
+                <button onclick="toggleVisualFilter('badge')" id="filterBtn_badge" class="stress-btn active">
+                  <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                  <span>🕒 Зона таймкода (12:34)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="aiThumbnailConceptsContainer"></div>
+          <div id="thumbnailAuditResults"></div>
+          <div id="simulatorFeedContainer" class="p-6 rounded-2xl bg-[#12131b] border border-white/[0.08]"></div>
+        </div>
+
+        <!-- Subpanel 3: Transcripts & AI Summary -->
+        <div class="subtab-panel hidden space-y-6" data-panel="transcripts">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5">
+            <h2 class="text-sm font-bold text-white mb-1">Транскрибация видео & AI Резюме</h2>
+            <p class="text-xs text-slate-400 mb-3">Извлечение 100% текста с таймкодами и создание краткого конспекта сути видео</p>
+            <form onsubmit="extractTranscriptSearch(); return false;" class="flex gap-2">
+              <input 
+                type="text" 
+                id="transcriptSearchInput" 
+                placeholder="https://www.youtube.com/watch?v=kUcQwawVaIE или ID видео" 
+                class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500"
+              >
+              <button type="submit" class="btn-primary">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                <span>Получить текст</span>
+              </button>
+            </form>
+          </div>
+          <div id="transcriptResultsContainer" class="space-y-6"></div>
+        </div>
+
+        <!-- Subpanel 4: A/B Testing -->
+        <div class="subtab-panel hidden space-y-6" data-panel="ab_testing">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-sm font-bold text-white">A/B Тестирование обложек и заголовков</h2>
+              <p class="text-xs text-slate-400">Ротация вариантов каждые 24 часа и расчет реального CTR для выявления победителя</p>
+            </div>
+            <button onclick="openCreateABModal()" class="btn-purple text-xs">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Создать A/B тест</span>
+            </button>
+          </div>
+          <div id="abTestsContainer" class="space-y-4"></div>
+        </div>
+
+        <!-- Subpanel 5: Audience Comments & Pain Points Mining -->
+        <div class="subtab-panel hidden space-y-6" data-panel="comments_mining">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="message-square" class="w-4 h-4 text-purple-400"></i>
+                  Анализ комментариев и болей аудитории (Audience Pain Points Mining)
+                </h3>
+                <p class="text-xs text-slate-400">Парсинг реальных комментариев зрителей под любым видео и AI-кластеризация их скрытых желаний, вопросов и идей</p>
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <div class="relative flex-1">
+                <i data-lucide="youtube" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                <input type="text" id="commentsVideoInput" placeholder="Вставьте ссылку на видео или ID (например: https://youtube.com/watch?v=...)" class="w-full bg-[#0b0c13] border border-white/[0.08] rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors">
+              </div>
+              <button onclick="searchAndMineComments()" class="btn-purple text-xs px-4 py-2 flex items-center gap-2 shrink-0">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>Кластеризовать боли</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="commentsMiningResultsContainer"></div>
+        </div>
+
+      </section>
+
+      <!-- ======================================================================
+           HUB 2: 📊 АНАЛИТИКА КАНАЛОВ (Channel Hub)
+           ====================================================================== -->
+      <section id="hubSection_channel_hub" class="hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#12131b] border border-white/[0.08] p-3 rounded-xl shadow-sm">
+          <div>
+            <h1 class="text-sm md:text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-emerald-400"></i>
+              Аналитика каналов (Channel Hub)
+            </h1>
+            <p class="text-xs text-slate-400">Медианные просмотры, лучшее время постинга и приватная Studio-аналитика</p>
+          </div>
+
+          <div class="segmented-control" style="display: inline-flex; align-items: center; gap: 4px; background-color: #0b0c13; border: 1px solid rgba(255, 255, 255, 0.12); padding: 4px; border-radius: 10px;">
+            <button onclick="switchSubtab('channel_hub', 'channel_audit')" class="subtab-btn active" data-subtab="channel_audit" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+              <span>Обзор & Медианы</span>
+            </button>
+            <button onclick="switchSubtab('channel_hub', 'best_time')" class="subtab-btn" data-subtab="best_time" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+              <span>Лучшее время (7×24)</span>
+            </button>
+            <button onclick="switchSubtab('channel_hub', 'studio')" class="subtab-btn" data-subtab="studio" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+              <span>YouTube Студия (OAuth)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Channel Context Banner (Persistent across subtabs) -->
+        <div id="activeChannelBanner" class="hidden p-3 rounded-xl bg-[#12131b] border border-emerald-500/30 flex items-center justify-between gap-3 shadow-md">
+          <div class="flex items-center gap-3 min-w-0">
+            <img id="activeChannelBannerThumb" src="" alt="Active Channel" class="w-9 h-9 rounded-full object-cover border border-white/10 shrink-0">
+            <div class="min-w-0">
+              <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="check-circle" class="w-3 h-3 text-emerald-400"></i>
+                <span>Активный канал для анализа:</span>
+              </div>
+              <div id="activeChannelBannerTitle" class="text-xs font-semibold text-white truncate max-w-xl"></div>
+            </div>
+          </div>
+          <span id="activeChannelBannerMeta" class="text-[11px] text-slate-400 font-mono shrink-0 hidden sm:inline px-2.5 py-1 bg-[#161720] rounded-md border border-white/[0.06]"></span>
+        </div>
+
+        <!-- Subpanel: Channel Audit -->
+        <div class="subtab-panel space-y-6" data-panel="channel_audit">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5">
+            <h2 class="text-sm font-bold text-white mb-1">Аудит канала & Расчет нормы просмотров</h2>
+            <p class="text-xs text-slate-400 mb-3">Введите @handle канала или ссылку для выявления закономерностей и медианных просмотров</p>
+            <form onsubmit="analyzeChannelSearch(); return false;" class="flex gap-2">
+              <input 
+                type="text" 
+                id="channelSearchInput" 
+                placeholder="@handle (напр. @veritasium), ссылка или ID" 
+                class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+              >
+              <button type="button" id="channelHubMyChannelBtn" onclick="openMyChannelAudit()" class="hidden px-3.5 py-2 rounded-lg bg-emerald-950/70 hover:bg-emerald-900/70 text-emerald-300 border border-emerald-700/60 text-xs font-semibold flex items-center gap-1.5 transition-colors shrink-0 shadow-sm" title="Загрузить аналитику моего YouTube канала">
+                <i data-lucide="user-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>🎬 Мой канал</span>
+              </button>
+              <button type="submit" class="btn-emerald">
+                <i data-lucide="search" class="w-3.5 h-3.5"></i>
+                <span>Аудит канала</span>
+              </button>
+            </form>
+          </div>
+          <div id="channelResultsContainer" class="space-y-6"></div>
+        </div>
+
+        <!-- Subpanel: Best Time to Post -->
+        <div class="subtab-panel hidden space-y-6" data-panel="best_time">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i>
+                  Лучшее время для публикации (7 Дней × 24 Часа)
+                </h3>
+                <p class="text-xs text-slate-400">Определите пиковые часы («Золотые слоты»), когда зрители находятся онлайн</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-slate-400">Пояс:</span>
+                <select id="bestTimeTimezoneSelect" onchange="handleTimezoneChange()" class="bg-[#161720] border border-white/[0.08] rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none">
+                  <option value="3" selected>UTC+3 (Москва, Киев, Минск)</option>
+                  <option value="2">UTC+2 (Берлин, Варшава)</option>
+                  <option value="0">UTC+0 (Лондон)</option>
+                  <option value="-4">UTC-4 (Нью-Йорк)</option>
+                  <option value="-7">UTC-7 (Лос-Анджелес)</option>
+                  <option value="5">UTC+5 (Ташкент)</option>
+                  <option value="6">UTC+6 (Астана)</option>
+                </select>
+              </div>
+            </div>
+
+            <form onsubmit="loadBestTimeHeatmap(); return false;" class="flex gap-2 pt-1 border-t border-white/[0.08]">
+              <input type="text" id="bestTimeChannelInput" value="@veritasium" placeholder="@handle канала..." class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none">
+              <button type="submit" class="btn-amber text-xs">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                <span>Рассчитать</span>
+              </button>
+            </form>
+          </div>
+          <div id="bestTimeDashboardContainer" class="space-y-6"></div>
+        </div>
+
+        <!-- Subpanel: Studio OAuth Analytics -->
+        <div class="subtab-panel hidden space-y-6" data-panel="studio">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                <i data-lucide="lock" class="w-4 h-4 text-emerald-400"></i>
+                YouTube Студия (Приватная аналитика)
+              </h2>
+              <p class="text-xs text-slate-400">Кривая удержания (Retention Curve), реальный CTR показов и источники трафика</p>
+            </div>
+            <button onclick="openOAuthModal()" class="px-3 py-1.5 bg-slate-800 text-slate-200 border border-slate-700 text-xs font-semibold rounded-lg flex items-center gap-1.5">
+              <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+              <span>Google OAuth</span>
+            </button>
+          </div>
+          <div id="studioAnalyticsContainer" class="space-y-6"></div>
+        </div>
+
+      </section>
+
+      <!-- ======================================================================
+           HUB 3: 🧠 AI-СТУДИЯ & СЦЕНАРИИ (AI Creative Hub)
+           ====================================================================== -->
+      <section id="hubSection_ai_hub" class="hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#12131b] border border-white/[0.08] p-3 rounded-xl shadow-sm">
+          <div>
+            <h1 class="text-sm md:text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+              AI Сценарный цех & Идеи (Gemini 3.7)
+            </h1>
+            <p class="text-xs text-slate-400">Ежедневные вирусные идеи, поминутные сценарии с B-Roll и пакеты Shorts</p>
+          </div>
+
+          <div class="segmented-control" style="display: inline-flex; align-items: center; gap: 4px; background-color: #0b0c13; border: 1px solid rgba(255, 255, 255, 0.12); padding: 4px; border-radius: 10px;">
+            <button onclick="switchSubtab('ai_hub', 'daily_ideas')" class="subtab-btn active" data-subtab="daily_ideas" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="lightbulb" class="w-3.5 h-3.5"></i>
+              <span>Идеи дня (Daily Ideas)</span>
+            </button>
+            <button onclick="switchSubtab('ai_hub', 'scripts')" class="subtab-btn" data-subtab="scripts" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="clapperboard" class="w-3.5 h-3.5"></i>
+              <span>Сценарии & Shorts</span>
+            </button>
+            <button onclick="switchSubtab('ai_hub', 'ai_studio')" class="subtab-btn" data-subtab="ai_studio" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
+              <span>Генератор метаданных</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Subpanel: Daily Ideas -->
+        <div class="subtab-panel space-y-6" data-panel="daily_ideas">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="lightbulb" class="w-4 h-4 text-amber-400"></i>
+                  AI Идеи дня (vidIQ Boost)
+                </h3>
+                <p class="text-xs text-slate-400">Персонализированные идеи с прогнозом кликабельности (90–98%)</p>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <input type="text" id="dailyIdeasNicheInput" placeholder="Укажите нишу канала..." class="bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none w-44">
+                <button onclick="generateFreshDailyIdeas()" class="btn-amber text-xs">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                  <span>Сгенерировать 5 идей</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between border-t border-white/[0.08] pt-3">
+              <div class="flex gap-1.5 p-1 bg-[#161720] rounded-lg border border-white/[0.08]">
+                <button onclick="switchDailyIdeasSubtab('new')" id="dailyTab_new" class="subtab-btn active">🔥 Новые</button>
+                <button onclick="switchDailyIdeasSubtab('saved')" id="dailyTab_saved" class="subtab-btn">❤️ Сохраненные</button>
+                <button onclick="switchDailyIdeasSubtab('dismissed')" id="dailyTab_dismissed" class="subtab-btn">✕ Архив</button>
+              </div>
+              <span class="text-xs text-slate-400 hidden sm:inline">Нажимайте ❤️ чтобы сохранить в бэклог</span>
+            </div>
+          </div>
+          <div id="dailyIdeasContainer" class="space-y-4"></div>
+        </div>
+
+        <!-- Subpanel: Scripts & Shorts -->
+        <div class="subtab-panel hidden space-y-6" data-panel="scripts">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="clapperboard" class="w-4 h-4 text-rose-400"></i>
+                  Сценарный цех & Пакет Shorts
+                </h3>
+                <p class="text-xs text-slate-400">Поминутный сценарий ролика с B-Roll ремарками или 3 вирусных Shorts</p>
+              </div>
+              <div class="flex items-center gap-1.5 p-1 bg-[#161720] rounded-lg border border-white/[0.08]">
+                <button onclick="switchScriptMode('full')" id="scriptMode_full" class="subtab-btn active">🎬 Длинное видео</button>
+                <button onclick="switchScriptMode('shorts')" id="scriptMode_shorts" class="subtab-btn">📱 3 Shorts / Reels</button>
+              </div>
+            </div>
+
+            <form onsubmit="handleScriptSubmit(event); return false;" class="space-y-3 pt-1 border-t border-white/[0.08]">
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                <div class="md:col-span-6">
+                  <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Тема ролика / Заголовок</label>
+                  <input type="text" id="scriptTopicInput" required placeholder="напр. 7 скрытых нейросетей для бизнеса..." class="w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none">
+                </div>
+                <div id="scriptDurationField" class="md:col-span-3">
+                  <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Хронометраж</label>
+                  <select id="scriptDurationInput" class="w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none">
+                    <option value="5">~5 минут</option>
+                    <option value="10" selected>~10 минут</option>
+                    <option value="15">~15 минут</option>
+                    <option value="20">~20 минут</option>
+                  </select>
+                </div>
+                <div class="md:col-span-3">
+                  <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Стиль</label>
+                  <select id="scriptToneSelect" class="w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none">
+                    <option value="Энергичный и увлекательный" selected>🔥 Энергичный</option>
+                    <option value="Аналитический и экспертный">🧠 Экспертный</option>
+                    <option value="Интригующий и кинематографичный">🎬 Storytelling</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex justify-end pt-1">
+                <button type="submit" class="btn-rose text-xs">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                  <span>Написать сценарий</span>
+                </button>
+              </div>
+            </form>
+          </div>
+          <div id="scriptResultsContainer" class="space-y-6"></div>
+        </div>
+
+        <!-- Subpanel: AI Metadata Studio -->
+        <div class="subtab-panel hidden space-y-6" data-panel="ai_studio">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-3">
+            <h2 class="text-sm font-bold text-white">AI Генератор заголовков и описаний</h2>
+            <p class="text-xs text-slate-400">Создание кликабельных формул заголовков с высоким CTR и SEO-описаний</p>
+            <div class="flex gap-2">
+              <input type="text" id="aiTopicInput" placeholder="Введите тему или тезисы видео..." class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none">
+              <button onclick="generateAITitles()" class="btn-primary text-xs">Заголовки</button>
+              <button onclick="generateAIDescription()" class="btn-emerald text-xs">Описание</button>
+            </div>
+          </div>
+          <div id="aiStudioResultsContainer" class="space-y-6"></div>
+        </div>
+
+      </section>
+
+      <!-- ======================================================================
+           HUB 4: 🔍 ТРЕНДЫ & НИШИ (Market Intelligence)
+           ====================================================================== -->
+      <section id="hubSection_trends_hub" class="hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#12131b] border border-white/[0.08] p-3 rounded-xl shadow-sm">
+          <div>
+            <h1 class="text-sm md:text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
+              Тренды & Разведка ниши (1of10 Grade)
+            </h1>
+            <p class="text-xs text-slate-400">Поиск виральных аномалий >2x–10x, исследование ключевых слов и конкурентов</p>
+          </div>
+
+          <div class="segmented-control" style="display: inline-flex; align-items: center; gap: 4px; background-color: #0b0c13; border: 1px solid rgba(255, 255, 255, 0.12); padding: 4px; border-radius: 10px;">
+            <button onclick="switchSubtab('trends_hub', 'harvester')" class="subtab-btn active" data-subtab="harvester" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span>Сбор данных (База ниш)</span>
+            </button>
+            <button onclick="switchSubtab('trends_hub', 'niche_outliers')" class="subtab-btn" data-subtab="niche_outliers" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+              <span>Сканер аномалий</span>
+            </button>
+            <button onclick="switchSubtab('trends_hub', 'keywords')" class="subtab-btn" data-subtab="keywords" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="key" class="w-3.5 h-3.5"></i>
+              <span>Ключевые слова</span>
+            </button>
+            <button onclick="switchSubtab('trends_hub', 'competitors')" class="subtab-btn" data-subtab="competitors" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="users" class="w-3.5 h-3.5"></i>
+              <span>Конкуренты</span>
+            </button>
+            <button onclick="switchSubtab('trends_hub', 'radar'); loadCompetitorRadar();" class="subtab-btn" data-subtab="radar" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="radio" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>📡 Радар конкурентов (VPH)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Subpanel 1: Niche Data Harvester (On-Demand Data Ingestion) -->
+        <div class="subtab-panel space-y-6" data-panel="harvester">
+          <div id="harvesterSchedulerContainer"></div>
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="database" class="w-4 h-4 text-blue-400"></i>
+                  Глубокий сбор данных в базу (Niche Data Harvester)
+                </h3>
+                <p class="text-xs text-slate-400">Пакетный сбор десятков роликов, вычисление CTR, ER, VPH, поиск аномалий и вечное сохранение в SQLite</p>
+              </div>
+
+              <!-- Niche Preset Chips -->
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="text-[10px] text-slate-400 font-bold uppercase mr-1">Быстрые ниши:</span>
+                <button type="button" onclick="setHarvesterPreset('ИИ агенты')" class="px-2.5 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-900/60 text-blue-300 border border-blue-800/60 text-xs font-semibold flex items-center gap-1 transition-colors">
+                  <span>🤖 ИИ агенты</span>
+                </button>
+                <button type="button" onclick="setHarvesterPreset('ASMR')" class="px-2.5 py-1 rounded-lg bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 border border-purple-800/60 text-xs font-semibold flex items-center gap-1 transition-colors">
+                  <span>🎧 ASMR</span>
+                </button>
+                <button type="button" onclick="setHarvesterPreset('ИИ аватары с короткими историями')" class="px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-800/60 text-xs font-semibold flex items-center gap-1 transition-colors">
+                  <span>🎭 ИИ аватары & истории</span>
+                </button>
+              </div>
+            </div>
+
+            <form onsubmit="runNicheHarvest(); return false;" class="flex gap-2 pt-1 border-t border-white/[0.08]">
+              <div class="relative flex-1">
+                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                <input 
+                  type="text" 
+                  id="harvesterSearchInput" 
+                  value="ИИ агенты" 
+                  placeholder="Введите любую тему ниши (например: ИИ агенты, ASMR, ИИ аватары)..." 
+                  class="w-full bg-[#161720] border border-white/[0.08] rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500/60"
+                >
+              </div>
+              <button type="submit" class="btn-primary text-xs flex items-center gap-1.5 px-4 shrink-0">
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                <span>Запустить сбор базы</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Live Results Container -->
+          <div id="harvesterResultsContainer" class="space-y-4"></div>
+        </div>
+
+        <!-- Subpanel: Outliers -->
+        <div class="subtab-panel hidden space-y-6" data-panel="niche_outliers">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
+                  Детектор виральных аномалий (Outlier Hunter)
+                </h3>
+                <p class="text-xs text-slate-400">Поиск роликов, взорвавших рекомендации YouTube по всей нише или каналу</p>
+              </div>
+
+              <div class="flex items-center gap-1.5 p-1 bg-[#161720] rounded-lg border border-white/[0.08]">
+                <button onclick="switchOutlierMode('niche')" id="outlierMode_niche" class="subtab-btn active">По всей нише</button>
+                <button onclick="switchOutlierMode('channel')" id="outlierMode_channel" class="subtab-btn">По каналу</button>
+              </div>
+            </div>
+
+            <form onsubmit="handleOutliersSubmit(event); return false;" class="flex gap-2 pt-1 border-t border-white/[0.08]">
+              <input type="text" id="outlierSearchInput" value="Искусственный интеллект" placeholder="Тема или ниша для сканирования..." class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none">
+              <button type="submit" class="btn-amber text-xs">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                <span>Найти аномалии</span>
+              </button>
+            </form>
+
+            <div id="outlierFiltersRow" class="flex flex-wrap items-center justify-between gap-3 pt-2 text-xs">
+              <div class="flex items-center gap-3">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-slate-400 text-[11px]">Множитель:</span>
+                  <select id="outlierMultiplierFilter" onchange="applyOutlierClientFilters()" class="bg-[#161720] border border-white/[0.08] rounded px-2 py-1 text-xs text-white">
+                    <option value="2.0">🔥 2.0x и выше</option>
+                    <option value="5.0">⚡ 5.0x (High)</option>
+                    <option value="10.0">🚀 10.0x (Mega)</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-slate-400 text-[11px]">Размер канала:</span>
+                  <select id="outlierSubsFilter" onchange="applyOutlierClientFilters()" class="bg-[#161720] border border-white/[0.08] rounded px-2 py-1 text-xs text-white">
+                    <option value="all">Все каналы</option>
+                    <option value="50000">&lt; 50k сабов (Маленькие)</option>
+                    <option value="200000">&lt; 200k сабов (Средние)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="outlierResultsContainer" class="space-y-6"></div>
+        </div>
+
+        <!-- Subpanel: Keywords -->
+        <div class="subtab-panel hidden space-y-6" data-panel="keywords">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-3">
+            <h2 class="text-sm font-bold text-white">Keyword Research Lab (Поисковый спрос)</h2>
+            <form onsubmit="searchKeywords(); return false;" class="flex gap-2">
+              <input type="text" id="keywordSearchInput" placeholder="Ключевое слово или тема..." class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none">
+              <button type="submit" class="btn-primary text-xs">Анализировать</button>
+            </form>
+          </div>
+          <div id="keywordResultsContainer" class="space-y-6"></div>
+        </div>
+
+        <!-- Subpanel: Competitors -->
+        <div class="subtab-panel hidden space-y-6" data-panel="competitors">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-3">
+            <h2 class="text-sm font-bold text-white">Мониторинг конкурентов</h2>
+            <form onsubmit="compareCompetitors(); return false;" class="flex gap-2">
+              <input type="text" id="compChan1" placeholder="@канал 1" class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-slate-200">
+              <input type="text" id="compChan2" placeholder="@канал 2" class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-slate-200">
+              <button type="submit" class="btn-primary text-xs">Сравнить</button>
+            </form>
+          </div>
+          <div id="competitorResultsContainer" class="space-y-6"></div>
+        </div>
+
+        <!-- Subpanel 5: Competitor Spy Radar -->
+        <div class="subtab-panel hidden space-y-6" data-panel="radar">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="radio" class="w-4 h-4 text-amber-400 animate-pulse"></i>
+                  Радар конкурентов в реальном времени (Competitor Spy Radar)
+                </h3>
+                <p class="text-xs text-slate-400">Непрерывный мониторинг релизов конкурентов, расчет живой скорости просмотров в час (VPH) и детекция взлетающих видео</p>
+              </div>
+            </div>
+
+            <!-- Add Competitor Channel Input -->
+            <div class="flex gap-2">
+              <div class="relative flex-1">
+                <i data-lucide="user-plus" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                <input type="text" id="radarAddChannelInput" placeholder="Введите ссылку на канал конкурента или @handle (например: @mrgkb или https://youtube.com/@...)" class="w-full bg-[#0b0c13] border border-white/[0.08] rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-colors">
+              </div>
+              <button onclick="addCompetitorToRadar()" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-black font-bold text-xs flex items-center gap-2 transition-all shadow-lg shrink-0">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Добавить в радар</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="competitorRadarResultsContainer"></div>
+        </div>
+
+      </section>
+
+      <!-- ======================================================================
+           HUB 5: ⚙️ БАЗА & ИНСТРУМЕНТЫ (Studio Utilities)
+           ====================================================================== -->
+      <section id="hubSection_tools_hub" class="hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#12131b] border border-white/[0.08] p-3 rounded-xl shadow-sm">
+          <div>
+            <h1 class="text-sm md:text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="database" class="w-4 h-4 text-teal-400"></i>
+              База данных SQLite & Инструменты
+            </h1>
+            <p class="text-xs text-slate-400">Watchlist отслеживания, массовый редактор видео и Chrome Extension</p>
+          </div>
+
+          <div class="segmented-control" style="display: inline-flex; align-items: center; gap: 4px; background-color: #0b0c13; border: 1px solid rgba(255, 255, 255, 0.12); padding: 4px; border-radius: 10px;">
+            <button onclick="switchSubtab('tools_hub', 'history')" class="subtab-btn active" data-subtab="history" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="bookmark" class="w-3.5 h-3.5"></i>
+              <span>Watchlist & Снапшоты</span>
+            </button>
+            <button onclick="switchSubtab('tools_hub', 'bulk_tools')" class="subtab-btn" data-subtab="bulk_tools" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              <span>Массовый редактор</span>
+            </button>
+            <button onclick="switchSubtab('tools_hub', 'chrome_ext')" class="subtab-btn" data-subtab="chrome_ext" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              <i data-lucide="puzzle" class="w-3.5 h-3.5"></i>
+              <span>Chrome Extension</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Subpanel: History & Watchlist -->
+        <div class="subtab-panel space-y-6" data-panel="history">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-white">Watchlist каналов & История замеров</h3>
+              <p class="text-xs text-slate-400">Локальное сохранение снапшотов динамики просмотров и подписчиков</p>
+            </div>
+            <button onclick="loadWatchlistView()" class="btn-primary text-xs">Обновить данные</button>
+          </div>
+          <div id="watchlistContainer" class="space-y-4"></div>
+        </div>
+
+        <!-- Subpanel: Bulk Editor -->
+        <div class="subtab-panel hidden space-y-6" data-panel="bulk_tools">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-3">
+            <h2 class="text-sm font-bold text-white">Массовый редактор описаний и тегов</h2>
+            <p class="text-xs text-slate-400">Замена ссылок на соцсети и рекламных плашек во всех ваших видео за 1 клик</p>
+            <form onsubmit="handleBulkFindReplace(event); return false;" class="space-y-2">
+              <input type="text" id="bulkFindText" placeholder="Что заменить (напр. старая ссылка)..." class="w-full bg-[#161720] border border-white/[0.08] rounded px-3 py-1.5 text-xs text-white">
+              <input type="text" id="bulkReplaceText" placeholder="На что заменить (новая ссылка)..." class="w-full bg-[#161720] border border-white/[0.08] rounded px-3 py-1.5 text-xs text-white">
+              <button type="submit" class="btn-primary text-xs">Запустить массовую замену</button>
+            </form>
+          </div>
+          <div id="bulkResultsContainer" class="space-y-4"></div>
+        </div>
+
+        <!-- Subpanel: Chrome Extension Info -->
+        <div class="subtab-panel hidden space-y-6" data-panel="chrome_ext">
+          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-6 space-y-4 max-w-2xl">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow">
+                <i data-lucide="puzzle" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white">Браузерное расширение Chrome Extension (Manifest V3)</h3>
+                <span class="text-xs text-emerald-400 font-medium">Готово к установке из папки extension/</span>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Выводит <b>SEO Score (0-100)</b>, <b>VPH (скорость просмотров в час)</b> и <b>Скрытые теги</b> прямо на страницах <code>youtube.com/watch?v=...</code> под плеером.
+            </p>
+
+            <div class="p-3.5 rounded-lg bg-[#161720] border border-white/[0.08] text-xs text-slate-300 space-y-1.5 font-mono">
+              <div>1. Откройте в браузере: <code>chrome://extensions/</code></div>
+              <div>2. Включите «Режим разработчика» в правом верхнем углу</div>
+              <div>3. Нажмите «Загрузить распакованное» и укажите папку <code>extension/</code></div>
+            </div>
+          </div>
+        </div>
+
+      <!-- App Footer with Legal Links -->
+      <footer class="mt-12 pt-6 pb-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-slate-400">CreatorPulse</span>
+          <span>© 2026 Studio. Все права защищены.</span>
+        </div>
+        <div class="flex items-center gap-4 text-[11px]">
+          <a href="/privacy" target="_blank" class="hover:text-slate-300 transition-colors">Политика конфиденциальности</a>
+          <span>•</span>
+          <a href="/terms" target="_blank" class="hover:text-slate-300 transition-colors">Условия сервиса</a>
+          <span>•</span>
+          <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" class="hover:text-slate-300 transition-colors">Google API Policy</a>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       MODALS
+       ========================================================================== -->
+  
+  <!-- Create A/B Test Modal -->
+  <div id="createABModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[#12131b] border border-white/[0.12] rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+        <h3 class="font-bold text-sm text-white flex items-center gap-2">
+          <i data-lucide="git-branch" class="w-4 h-4 text-purple-400"></i>
+          Создать новый A/B тест
+        </h3>
+        <button onclick="closeCreateABModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <form onsubmit="handleCreateABSubmit(event); return false;" class="space-y-3">
+        <input type="text" id="abModalVideoId" required placeholder="ID видео (11 символов) или URL" class="w-full bg-[#161720] border border-white/[0.08] rounded px-3 py-1.5 text-xs text-white">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="p-3 rounded-lg bg-[#161720] border border-white/[0.06] space-y-2">
+            <span class="text-xs font-bold text-slate-200">Вариант A (Оригинал)</span>
+            <input type="text" id="abModalTitleA" placeholder="Заголовок A" class="w-full bg-[#0d0e14] border border-white/[0.08] rounded px-2.5 py-1 text-xs text-white">
+          </div>
+          <div class="p-3 rounded-lg bg-[#161720] border border-purple-800/40 space-y-2">
+            <span class="text-xs font-bold text-purple-400">Вариант B (Тест)</span>
+            <input type="text" id="abModalTitleB" required placeholder="Заголовок B" class="w-full bg-[#0d0e14] border border-white/[0.08] rounded px-2.5 py-1 text-xs text-white">
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeCreateABModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded text-xs">Отмена</button>
+          <button type="submit" class="btn-purple text-xs">Запустить A/B тест</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Viral DNA Breakdown Modal -->
+  <div id="viralBreakdownModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[#12131b] border border-white/[0.12] rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950/60 text-amber-300 border border-amber-800/60 uppercase">AI Viral DNA</span>
+          <h3 class="font-bold text-sm text-white">Анатомия виральности</h3>
+        </div>
+        <button onclick="closeViralBreakdownModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div id="viralBreakdownContent" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- OAuth Info Modal -->
+  <!-- All Channel Videos Modal -->
+  <div id="allVideosModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[#12131b] border border-white/[0.12] rounded-2xl max-w-4xl w-full max-h-[88vh] flex flex-col shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-white/[0.08] flex items-center justify-between bg-[#161722]">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+            <i data-lucide="film" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="allVideosModalTitle" class="font-bold text-sm text-white">Все видео канала</h3>
+            <p id="allVideosModalSubtitle" class="text-xs text-slate-400">Полный список роликов с метриками виральности и скорости VPH</p>
+          </div>
+        </div>
+        <button onclick="closeAllVideosModal()" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/[0.05] transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Controls & Search -->
+      <div class="p-4 border-b border-white/[0.08] bg-[#0d0e15] flex flex-wrap items-center justify-between gap-3">
+        <div class="relative flex-1 min-w-[220px]">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="modalVideoSearchInput" oninput="filterModalVideos()" placeholder="Поиск по названию ролика..." class="w-full pl-9 pr-3 py-1.5 bg-[#161722] border border-white/[0.1] rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+        </div>
+        <div class="flex items-center gap-2">
+          <select id="modalVideoSortSelect" onchange="sortModalVideos()" class="px-2.5 py-1.5 bg-[#161722] border border-white/[0.1] rounded-lg text-xs text-slate-300 focus:outline-none focus:border-blue-500">
+            <option value="views_desc">По просмотрам ⬇</option>
+            <option value="ctr_desc">По CTR (кликабельность) ⬇</option>
+            <option value="multiplier_desc">По множителю (Viral) ⬇</option>
+            <option value="date_desc">По дате (новые) ⬇</option>
+            <option value="vph_desc">По скорости VPH ⬇</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Video List Content -->
+      <div id="allVideosModalBody" class="p-4 overflow-y-auto space-y-2 flex-1">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-3 border-t border-white/[0.08] bg-[#161722] flex items-center justify-between text-xs text-slate-400">
+        <span id="allVideosCountInfo">Показано видео</span>
+        <button onclick="closeAllVideosModal()" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg transition-colors">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OAuth Modal (Classic Google Sign-In Style) -->
+  <div id="oauthModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[#13141d] border border-white/[0.12] rounded-3xl max-w-md w-full p-7 space-y-5 shadow-2xl relative overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Top Close Button -->
+      <button onclick="closeOAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/[0.06] transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div id="oauthModalBody" class="space-y-4 text-center"></div>
+    </div>
+  </div>
+
+  <!-- Non-blocking Top Progress Bar (Linear/YouTube style) -->
+  <div id="loadingState" class="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 animate-pulse z-50 hidden shadow-lg shadow-blue-500/50"></div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 px-4 py-2.5 bg-[#161720] border border-white/[0.15] text-slate-100 text-xs font-semibold rounded-lg shadow-2xl flex items-center gap-2 transform translate-y-16 opacity-0 transition-all duration-200 pointer-events-none z-50">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastMsg">Скопировано в буфер!</span>
+  </div>
+
+  <!-- Modular Scripts with Cache-Busting -->
+  <script src="js/core.js?v=23.0"></script>
+  <script src="js/video_seo.js?v=23.0"></script>
+  <script src="js/comments_mining.js?v=23.0"></script>
+  <script src="js/daily_ideas.js?v=23.0"></script>
+  <script src="js/scripts_studio.js?v=23.0"></script>
+  <script src="js/thumbnail_preview.js?v=23.0"></script>
+  <script src="js/transcripts.js?v=23.0"></script>
+  <script src="js/channel_audit.js?v=23.0"></script>
+  <script src="js/best_time.js?v=23.0"></script>
+  <script src="js/outliers.js?v=23.0"></script>
+  <script src="js/harvester.js?v=23.0"></script>
+  <script src="js/history.js?v=23.0"></script>
+  <script src="js/studio.js?v=23.0"></script>
+  <script src="js/ab_testing.js?v=23.0"></script>
+  <script src="js/bulk_tools.js?v=23.0"></script>
+  <script src="js/keywords.js?v=23.0"></script>
+  <script src="js/competitors.js?v=23.0"></script>
+  <script src="js/ai_studio.js?v=23.0"></script>
+  <script src="app.js?v=23.0"></script>
+</body>
+</html>

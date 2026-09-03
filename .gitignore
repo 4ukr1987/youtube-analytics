@@ -1,0 +1,32 @@
+# Environment variables & secrets
+.env
+.env.*
+*.env
+
+# Data tokens & databases
+data/*.json
+data/*.db
+data/*.txt
+data/
+
+# Python Virtual Environments
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# OS & IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+.freebuff/
+
+# Cache & logs
+*.log
+.pytest_cache/

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Analytics Suite</title>
+  <style>
+    body {
+      width: 300px;
+      margin: 0;
+      padding: 14px;
+      background: #0f1017;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .logo {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge {
+      background: #3b1d28;
+      color: #f43f5e;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 5px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      background: #2563eb;
+      color: #ffffff;
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      margin-bottom: 8px;
+      transition: background 0.15s ease;
+    }
+    .btn:hover {
+      background: #1d4ed8;
+    }
+    .btn-secondary {
+      background: #1e202f;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+    }
+    .btn-secondary:hover {
+      background: #272a3e;
+      color: #ffffff;
+    }
+    .status-text {
+      font-size: 10px;
+      color: #94a3b8;
+      text-align: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <span>⚡ Growth Studio</span>
+      <span class="badge">PRO</span>
+    </div>
+  </div>
+
+  <button id="openStudioBtn" class="btn">
+    🚀 Открыть Growth Studio Dashboard
+  </button>
+
+  <button id="openOutliersBtn" class="btn btn-secondary">
+    🔥 Детектор виральности (Outliers)
+  </button>
+
+  <button id="openDailyIdeasBtn" class="btn btn-secondary">
+    💡 AI Идеи дня (Daily Ideas)
+  </button>
+
+  <div class="status-text">Локальный сервер: http://127.0.0.1:8000</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

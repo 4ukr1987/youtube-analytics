@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Analytics & Growth Studio (vidIQ Pro Alternative)",
+  "version": "1.0.0",
+  "description": "Мгновенный SEO-аудит, скрытые теги, расчет VPH и AI-инструменты прямо на YouTube",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*",
+    "http://127.0.0.1:8000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Analytics Studio"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

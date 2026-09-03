@@ -59,9 +59,30 @@ function setLoading(isLoading) {
   }
 }
 
+// Mobile slide-over drawer toggle
+function toggleMobileMenu(isOpen) {
+  const sidebar = document.getElementById('mainSidebar');
+  const backdrop = document.getElementById('mobileBackdrop');
+  if (!sidebar) return;
+  
+  const shouldOpen = isOpen !== undefined ? isOpen : sidebar.classList.contains('-translate-x-full');
+  if (shouldOpen) {
+    sidebar.classList.remove('-translate-x-full');
+    if (backdrop) backdrop.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  } else {
+    sidebar.classList.add('-translate-x-full');
+    if (backdrop) backdrop.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+}
+
 // Primary 5-Hub Switcher
 function switchHub(hubKey, targetSubtab = null) {
   activeHub = hubKey;
+  
+  // Auto-close mobile drawer on selection
+  toggleMobileMenu(false);
   
   // Update sidebar hub buttons
   ['video_hub', 'channel_hub', 'ai_hub', 'trends_hub', 'tools_hub'].forEach(h => {
@@ -69,6 +90,18 @@ function switchHub(hubKey, targetSubtab = null) {
     const section = document.getElementById(`hubSection_${h}`);
     if (btn) btn.classList.toggle('active', h === hubKey);
     if (section) section.classList.toggle('hidden', h !== hubKey);
+
+    // Update bottom navigation bar button styles
+    const bottomBtn = document.getElementById(`bottomNav_${h}`);
+    if (bottomBtn) {
+      if (h === hubKey) {
+        bottomBtn.classList.add('text-blue-400', 'bg-white/[0.05]');
+        bottomBtn.classList.remove('text-slate-400');
+      } else {
+        bottomBtn.classList.remove('text-blue-400', 'bg-white/[0.05]');
+        bottomBtn.classList.add('text-slate-400');
+      }
+    }
   });
 
   const subtab = targetSubtab || activeSubtabs[hubKey];

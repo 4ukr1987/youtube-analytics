@@ -2,7 +2,11 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CreatorPulse">
+  <meta name="theme-color" content="#0d0e14">
   <title>YouTube Growth & Analytics Studio — Linear Grade Suite</title>
   
   <!-- Modern Inter & Plus Jakarta Sans typography -->
@@ -15,23 +19,26 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=5.0">
+  <link rel="stylesheet" href="style.css?v=6.0">
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white bg-[#08090d]">
 
   <!-- ==========================================================================
        TOP HEADER & SMART OMNIBAR
        ========================================================================== -->
-  <header class="h-14 border-b border-white/[0.08] bg-[#0d0e14]/90 backdrop-blur-md px-4 flex items-center justify-between gap-4 sticky top-0 z-40">
+  <header class="h-14 border-b border-white/[0.08] bg-[#0d0e14]/90 backdrop-blur-md px-3 sm:px-4 flex items-center justify-between gap-2 sm:gap-4 sticky top-0 z-40">
     
-    <!-- Logo & Brand -->
-    <div class="flex items-center gap-3 shrink-0">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md">
-        <i data-lucide="play" class="w-4 h-4 fill-white"></i>
+    <!-- Mobile Menu Button & Brand -->
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <button onclick="toggleMobileMenu()" id="mobileMenuBtn" class="md:hidden p-1.5 text-slate-300 hover:text-white hover:bg-white/[0.08] rounded-lg transition-colors" aria-label="Меню">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+      <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md">
+        <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
       </div>
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-sm text-white tracking-tight">Growth Studio</span>
-        <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-blue-950/80 text-blue-400 border border-blue-800/60 uppercase">PRO 3.0</span>
+      <div class="flex items-center gap-1.5">
+        <span class="font-bold text-xs sm:text-sm text-white tracking-tight">Growth Studio</span>
+        <span class="hidden sm:inline px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-blue-950/80 text-blue-400 border border-blue-800/60 uppercase">PRO 3.0</span>
       </div>
     </div>
 
@@ -52,31 +59,47 @@
     </form>
 
     <!-- System Status, DB Vault & OAuth -->
-    <div class="flex items-center gap-2.5 shrink-0">
-      <div id="dbVaultStatusBadge" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-blue-950/50 border border-blue-800/50 text-blue-300 text-xs font-mono" title="Локальная база данных SQLite активна (квота API экономится)">
+    <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+      <div id="dbVaultStatusBadge" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-blue-950/50 border border-blue-800/50 text-blue-300 text-xs font-mono" title="Локальная база данных SQLite активна">
         <i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i>
-        <span id="dbVaultStatusText">База данных активна</span>
+        <span id="dbVaultStatusText">База данных</span>
       </div>
-      <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-mono">
+      <div class="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-[11px] font-mono">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span id="apiStatusText">YouTube API Active</span>
+        <span id="apiStatusText">YouTube API</span>
       </div>
-      <button onclick="openOAuthModal()" id="headerOAuthBtn" class="px-3 py-1 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-md text-xs font-medium text-slate-200 transition-colors flex items-center gap-1.5">
+      <button onclick="openOAuthModal()" id="headerOAuthBtn" class="px-2.5 sm:px-3 py-1 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-md text-xs font-medium text-slate-200 transition-colors flex items-center gap-1.5">
         <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-400"></i>
-        <span id="headerOAuthText" class="hidden md:inline">Google OAuth</span>
+        <span id="headerOAuthText" class="hidden sm:inline">Google OAuth</span>
       </button>
     </div>
   </header>
 
+  <!-- Mobile Backdrop Overlay -->
+  <div id="mobileBackdrop" onclick="toggleMobileMenu(false)" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-40 hidden md:hidden transition-opacity duration-300"></div>
+
   <!-- ==========================================================================
        MAIN WORKSPACE (5-Hub Sidebar + Dynamic Content Canvas)
        ========================================================================== -->
-  <div class="flex-1 flex flex-col md:flex-row">
+  <div class="flex-1 flex flex-col md:flex-row relative">
 
-    <!-- 5 Super-Hubs Sidebar Navigation -->
-    <aside class="w-full md:w-60 bg-[#0d0e14] border-r border-white/[0.08] p-3 flex flex-col justify-between shrink-0">
+    <!-- 5 Super-Hubs Sidebar Navigation (Desktop Fixed + Mobile Slide-Over Drawer) -->
+    <aside id="mainSidebar" class="fixed inset-y-0 left-0 z-50 w-72 md:w-60 bg-[#0d0e14] border-r border-white/[0.08] p-3 flex flex-col justify-between shrink-0 transform -translate-x-full md:translate-x-0 md:static md:z-auto transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none overflow-y-auto">
       
       <div class="space-y-1">
+        <!-- Mobile Drawer Header (visible on mobile only) -->
+        <div class="flex items-center justify-between pb-3 mb-2 border-b border-white/[0.08] md:hidden">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-md bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs">
+              <i data-lucide="play" class="w-3 h-3 fill-white"></i>
+            </div>
+            <span class="font-bold text-xs text-white">Growth Studio</span>
+          </div>
+          <button onclick="toggleMobileMenu(false)" class="p-1 text-slate-400 hover:text-white hover:bg-white/[0.08] rounded-lg transition-colors">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
         <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2.5 py-1.5">Рабочие пространства</div>
 
         <!-- 1. Video Studio Hub -->
@@ -150,7 +173,7 @@
     </aside>
 
     <!-- Content Workspace Canvas -->
-    <main class="flex-1 p-4 md:p-6 overflow-y-auto max-w-7xl mx-auto w-full space-y-6">
+    <main class="flex-1 p-3 sm:p-4 md:p-6 pb-24 md:pb-6 overflow-y-auto max-w-7xl mx-auto w-full space-y-6">
 
       <!-- ======================================================================
            HUB 1: 🎥 ВИДЕО-ЛАБОРАТОРИЯ (Video Studio)
@@ -1044,25 +1067,51 @@
     <span id="toastMsg">Скопировано в буфер!</span>
   </div>
 
+  <!-- ==========================================================================
+       MOBILE BOTTOM NAVIGATION BAR (iOS / Android App Style)
+       ========================================================================== -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-[#0d0e14]/95 backdrop-blur-lg border-t border-white/[0.08] px-2 py-1.5 flex items-center justify-around mobile-bottom-nav">
+    <button onclick="switchHub('video_hub')" id="bottomNav_video_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-blue-400 bg-white/[0.05] transition-colors">
+      <i data-lucide="video" class="w-4 h-4"></i>
+      <span class="text-[9px] font-medium leading-none">Студия</span>
+    </button>
+    <button onclick="switchHub('channel_hub')" id="bottomNav_channel_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+      <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+      <span class="text-[9px] font-medium leading-none">Канал</span>
+    </button>
+    <button onclick="switchHub('ai_hub')" id="bottomNav_ai_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+      <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+      <span class="text-[9px] font-medium leading-none">AI Идеи</span>
+    </button>
+    <button onclick="switchHub('trends_hub')" id="bottomNav_trends_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+      <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
+      <span class="text-[9px] font-medium leading-none">Тренды</span>
+    </button>
+    <button onclick="toggleMobileMenu(true)" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+      <i data-lucide="menu" class="w-4 h-4"></i>
+      <span class="text-[9px] font-medium leading-none">Все хабы</span>
+    </button>
+  </nav>
+
   <!-- Modular Scripts with Cache-Busting -->
-  <script src="js/core.js?v=25.0"></script>
-  <script src="js/video_seo.js?v=25.0"></script>
-  <script src="js/comments_mining.js?v=25.0"></script>
-  <script src="js/daily_ideas.js?v=25.0"></script>
-  <script src="js/scripts_studio.js?v=25.0"></script>
-  <script src="js/thumbnail_preview.js?v=25.0"></script>
-  <script src="js/transcripts.js?v=25.0"></script>
-  <script src="js/channel_audit.js?v=25.0"></script>
-  <script src="js/best_time.js?v=25.0"></script>
-  <script src="js/outliers.js?v=25.0"></script>
-  <script src="js/harvester.js?v=25.0"></script>
-  <script src="js/history.js?v=25.0"></script>
-  <script src="js/studio.js?v=25.0"></script>
-  <script src="js/ab_testing.js?v=25.0"></script>
-  <script src="js/bulk_tools.js?v=25.0"></script>
-  <script src="js/keywords.js?v=25.0"></script>
-  <script src="js/competitors.js?v=25.0"></script>
-  <script src="js/ai_studio.js?v=25.0"></script>
-  <script src="app.js?v=25.0"></script>
+  <script src="js/core.js?v=26.0"></script>
+  <script src="js/video_seo.js?v=26.0"></script>
+  <script src="js/comments_mining.js?v=26.0"></script>
+  <script src="js/daily_ideas.js?v=26.0"></script>
+  <script src="js/scripts_studio.js?v=26.0"></script>
+  <script src="js/thumbnail_preview.js?v=26.0"></script>
+  <script src="js/transcripts.js?v=26.0"></script>
+  <script src="js/channel_audit.js?v=26.0"></script>
+  <script src="js/best_time.js?v=26.0"></script>
+  <script src="js/outliers.js?v=26.0"></script>
+  <script src="js/harvester.js?v=26.0"></script>
+  <script src="js/history.js?v=26.0"></script>
+  <script src="js/studio.js?v=26.0"></script>
+  <script src="js/ab_testing.js?v=26.0"></script>
+  <script src="js/bulk_tools.js?v=26.0"></script>
+  <script src="js/keywords.js?v=26.0"></script>
+  <script src="js/competitors.js?v=26.0"></script>
+  <script src="js/ai_studio.js?v=26.0"></script>
+  <script src="app.js?v=26.0"></script>
 </body>
 </html>

@@ -337,7 +337,7 @@ function exportAuditReport(type = 'markdown') {
     filename = `Video_SEO_${Date.now()}.md`;
     content = `# 🎬 SEO Отчет видео: ${title}\n\n` +
       `Дата экспорта: ${new Date().toLocaleDateString()}\n\n` +
-      `Отчет сгенерирован в YouTube Growth Studio.\n`;
+      `Отчет сгенерирован в CloutX Studio.\n`;
   } else {
     showToast("Сначала выполните поиск канала или видео для экспорта");
     return;

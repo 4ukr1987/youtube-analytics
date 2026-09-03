@@ -63,7 +63,7 @@ function renderCompetitorsComparison(comp) {
           <img src="${c2.thumbnail}" class="w-12 h-12 rounded-full border border-slate-700 object-cover" alt="Avatar">
           <div class="min-w-0">
             <h4 class="text-sm font-bold text-white truncate">${c2.title}</h4>
-            <span class="text-xs text-purple-400 font-mono">${c2.subscribers.toLocaleString()} сабов</span>
+            <span class="text-xs text-zinc-400 font-mono">${c2.subscribers.toLocaleString()} сабов</span>
           </div>
         </div>
       </div>
@@ -71,14 +71,14 @@ function renderCompetitorsComparison(comp) {
       <!-- Comparison Metrics Table -->
       <div class="bg-bg-card border border-bg-border rounded-xl p-5 space-y-3">
         <h4 class="font-bold text-sm text-white flex items-center gap-2">
-          <i data-lucide="swords" class="w-4 h-4 text-amber-400"></i>
+          <i data-lucide="swords" class="w-4 h-4 text-zinc-400"></i>
           Метрики противостояния (Scoreboard)
         </h4>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse">
             <thead>
-              <tr class="border-b border-bg-border text-[10px] font-semibold uppercase text-slate-400">
+              <tr class="border-b border-bg-border text-[10px] font-semibold uppercase text-zinc-400">
                 <th class="py-2.5 px-3">${c1.title}</th>
                 <th class="py-2.5 px-3 text-center">Метрика</th>
                 <th class="py-2.5 px-3 text-right">${c2.title}</th>
@@ -86,29 +86,29 @@ function renderCompetitorsComparison(comp) {
             </thead>
             <tbody class="text-xs font-mono">
               <tr class="border-b border-bg-border/60">
-                <td class="py-3 px-3 font-bold text-blue-400">${c1.subscribers.toLocaleString()}</td>
-                <td class="py-3 px-3 text-center text-slate-400 font-sans font-medium">Подписчики</td>
-                <td class="py-3 px-3 text-right font-bold text-purple-400">${c2.subscribers.toLocaleString()}</td>
+                <td class="py-3 px-3 font-semibold text-white">${c1.subscribers.toLocaleString()}</td>
+                <td class="py-3 px-3 text-center text-zinc-400 font-sans font-medium">Подписчики</td>
+                <td class="py-3 px-3 text-right font-semibold text-white">${c2.subscribers.toLocaleString()}</td>
               </tr>
               <tr class="border-b border-bg-border/60">
-                <td class="py-3 px-3 font-bold text-blue-400">${c1.total_views.toLocaleString()}</td>
-                <td class="py-3 px-3 text-center text-slate-400 font-sans font-medium">Всего просмотров</td>
-                <td class="py-3 px-3 text-right font-bold text-purple-400">${c2.total_views.toLocaleString()}</td>
+                <td class="py-3 px-3 font-semibold text-white">${c1.total_views.toLocaleString()}</td>
+                <td class="py-3 px-3 text-center text-zinc-400 font-sans font-medium">Всего просмотров</td>
+                <td class="py-3 px-3 text-right font-semibold text-white">${c2.total_views.toLocaleString()}</td>
               </tr>
               <tr class="border-b border-bg-border/60">
-                <td class="py-3 px-3 font-bold text-blue-400">${Math.round(c1.median_views).toLocaleString()}</td>
-                <td class="py-3 px-3 text-center text-slate-400 font-sans font-medium">Медиана просмотров</td>
-                <td class="py-3 px-3 text-right font-bold text-purple-400">${Math.round(c2.median_views).toLocaleString()}</td>
+                <td class="py-3 px-3 font-semibold text-white">${Math.round(c1.median_views).toLocaleString()}</td>
+                <td class="py-3 px-3 text-center text-zinc-400 font-sans font-medium">Медиана просмотров</td>
+                <td class="py-3 px-3 text-right font-semibold text-white">${Math.round(c2.median_views).toLocaleString()}</td>
               </tr>
               <tr class="border-b border-bg-border/60">
-                <td class="py-3 px-3 font-bold text-blue-400">${c1.engagement_rate}%</td>
-                <td class="py-3 px-3 text-center text-slate-400 font-sans font-medium">Вовлеченность (ER)</td>
-                <td class="py-3 px-3 text-right font-bold text-purple-400">${c2.engagement_rate}%</td>
+                <td class="py-3 px-3 font-semibold text-white">${c1.engagement_rate}%</td>
+                <td class="py-3 px-3 text-center text-zinc-400 font-sans font-medium">Вовлеченность (ER)</td>
+                <td class="py-3 px-3 text-right font-semibold text-white">${c2.engagement_rate}%</td>
               </tr>
               <tr>
-                <td class="py-3 px-3 font-bold text-blue-400">${c1.publishing_frequency}/нед</td>
-                <td class="py-3 px-3 text-center text-slate-400 font-sans font-medium">Регулярность</td>
-                <td class="py-3 px-3 text-right font-bold text-purple-400">${c2.publishing_frequency}/нед</td>
+                <td class="py-3 px-3 font-semibold text-white">${c1.publishing_frequency}/нед</td>
+                <td class="py-3 px-3 text-center text-zinc-400 font-sans font-medium">Регулярность</td>
+                <td class="py-3 px-3 text-right font-semibold text-white">${c2.publishing_frequency}/нед</td>
               </tr>
             </tbody>
           </table>
@@ -261,11 +261,11 @@ function renderRadarUI(competitors, feed) {
           </div>
 
           <div class="flex items-center gap-2 shrink-0 self-end md:self-auto">
-            <button onclick="mineAudiencePainPoints('${item.video_id}', '${safeTitle}'); switchHub('video_hub', 'comments_mining');" class="px-2.5 py-1.5 rounded-lg bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 border border-purple-800/60 text-[11px] font-semibold flex items-center gap-1 transition-colors" title="Спарсить боли зрителей">
+            <button onclick="mineAudiencePainPoints('${item.video_id}', '${safeTitle}'); switchHub('video_hub', 'comments_mining');" class="btn-secondary text-xs" title="Спарсить боли зрителей">
               <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
               <span>Боли</span>
             </button>
-            <button onclick="transferTopicToScriptStudio('${safeTitle}')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-semibold flex items-center gap-1.5 transition-colors shadow">
+            <button onclick="transferTopicToScriptStudio('${safeTitle}')" class="btn-primary text-xs">
               <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
               <span>Свой сценарий</span>
             </button>

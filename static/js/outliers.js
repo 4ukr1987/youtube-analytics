@@ -185,18 +185,18 @@ function renderNicheOutliersView(topic, outliers) {
 
             <!-- Action buttons: AI Breakdown & Remix -->
             <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-bg-border/60">
-              <button onclick="openViralBreakdown('${v.title.replace(/'/g, "\\'")}', '${v.channel_title.replace(/'/g, "\\'")}', ${v.views}, ${v.multiplier})" class="px-3 py-1.5 bg-amber-950/40 hover:bg-amber-950/80 text-amber-300 border border-amber-800/60 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
-                <span>✨ AI-Разбор виральности</span>
+              <button onclick="openViralBreakdown('${v.title.replace(/'/g, "\\'")}', '${v.channel_title.replace(/'/g, "\\'")}', ${v.views}, ${v.multiplier})" class="btn-primary text-xs">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                <span>AI-Разбор виральности</span>
               </button>
 
-              <button onclick="remixOutlierIdea('${v.title.replace(/'/g, "\\'")}')" class="px-3 py-1.5 bg-bg-input hover:bg-slate-800 text-slate-200 border border-bg-border rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5">
-                <i data-lucide="wand-2" class="w-3.5 h-3.5 text-purple-400"></i>
-                <span>🪄 Адаптировать под меня</span>
+              <button onclick="remixOutlierIdea('${v.title.replace(/'/g, "\\'")}')" class="btn-secondary text-xs">
+                <i data-lucide="wand-2" class="w-3.5 h-3.5 text-zinc-400"></i>
+                <span>Адаптировать под меня</span>
               </button>
 
-              <button onclick="quickExtractTranscript('${v.id}')" class="px-2.5 py-1.5 bg-bg-input hover:bg-slate-800 text-sky-400 border border-bg-border rounded-lg text-xs transition-colors" title="Открыть стенограмму">
-                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              <button onclick="quickExtractTranscript('${v.id}')" class="btn-secondary text-xs" title="Открыть стенограмму">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-zinc-400"></i>
               </button>
             </div>
           </div>
@@ -328,21 +328,21 @@ async function openViralBreakdown(title, channel, views, multiplier) {
         </div>
 
         <!-- Thumbnail Idea -->
-        <div class="p-3.5 rounded-xl bg-purple-950/30 border border-purple-800/50 space-y-1">
-          <span class="text-[10px] uppercase font-bold text-purple-400 flex items-center gap-1">
+        <div class="p-3.5 rounded-xl bg-[#14151a] border border-white/[0.08] space-y-1">
+          <span class="text-[10px] uppercase font-semibold text-zinc-400 flex items-center gap-1">
             <i data-lucide="image" class="w-3 h-3"></i>
             <span>Визуальная формула превью:</span>
           </span>
-          <p class="text-xs text-purple-200">${b.thumbnail_concept}</p>
+          <p class="text-xs text-zinc-200">${b.thumbnail_concept}</p>
         </div>
 
         <!-- Action Recipe -->
-        <div class="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/50 space-y-1.5">
-          <span class="text-[10px] uppercase font-bold text-emerald-400 flex items-center gap-1">
+        <div class="p-4 rounded-xl bg-[#14151a] border border-white/[0.08] space-y-1.5">
+          <span class="text-[10px] uppercase font-semibold text-zinc-400 flex items-center gap-1">
             <i data-lucide="flame" class="w-3 h-3"></i>
             <span>Как снять свой ролик на эту тему:</span>
           </span>
-          <p class="text-xs text-emerald-200 leading-relaxed">${b.remix_recipe}</p>
+          <p class="text-xs text-zinc-300 leading-relaxed">${b.remix_recipe}</p>
         </div>
 
         <div class="flex justify-end gap-2 pt-2">

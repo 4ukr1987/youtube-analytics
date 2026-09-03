@@ -95,43 +95,43 @@ function renderABTests(tests) {
       <div class="bg-bg-card border border-bg-border rounded-xl p-5 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-bg-border pb-3">
           <div class="flex items-center gap-2">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${t.status === 'active' ? 'bg-purple-950/60 text-purple-300 border border-purple-800/60' : 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/60'} uppercase">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium ${t.status === 'active' ? 'bg-white/[0.08] text-white border border-white/[0.12]' : 'bg-white/[0.04] text-zinc-400 border border-white/[0.08]'} uppercase">
               ${t.status === 'active' ? '● В ротации' : '✓ Завершен'}
             </span>
             <span class="text-xs font-bold text-white">${t.video_title}</span>
           </div>
-          <span class="text-xs font-mono text-slate-400">Смена каждые ${t.interval_hours}ч • Уверенность: ${t.confidence}%</span>
+          <span class="text-xs font-mono text-zinc-400">Смена каждые ${t.interval_hours}ч • Уверенность: ${t.confidence}%</span>
         </div>
 
         <!-- 2 Variants Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Variant A -->
-          <div class="p-4 rounded-xl ${isWinnerA ? 'bg-emerald-950/20 border-2 border-emerald-500' : 'bg-bg-input border border-bg-border'} space-y-3">
+          <div class="p-4 rounded-xl ${isWinnerA ? 'bg-white/[0.05] border-2 border-white/40' : 'bg-bg-input border border-bg-border'} space-y-3">
             <div class="flex items-center justify-between">
-              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-800 text-blue-400 border border-slate-700">Вариант A ${isWinnerA ? '🏆 ПОБЕДИТЕЛЬ' : ''}</span>
-              <span class="text-xs font-mono font-bold text-slate-200">CTR: <b class="text-blue-400 text-sm">${a.ctr}%</b></span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-white/[0.06] text-zinc-300 border border-white/[0.1]">Вариант A ${isWinnerA ? '🏆 ПОБЕДИТЕЛЬ' : ''}</span>
+              <span class="text-xs font-mono text-zinc-300">CTR: <b class="text-white text-sm">${a.ctr}%</b></span>
             </div>
-            <div class="aspect-video rounded-lg overflow-hidden bg-slate-900 border border-slate-800">
+            <div class="aspect-video rounded-lg overflow-hidden bg-zinc-900 border border-white/[0.08]">
               <img src="${a.thumbnail}" class="w-full h-full object-cover" alt="Thumbnail A">
             </div>
-            <p class="text-xs text-slate-200 font-semibold line-clamp-2">${a.title}</p>
-            <div class="flex justify-between text-[11px] text-slate-400 border-t border-bg-border/60 pt-2 font-mono">
+            <p class="text-xs text-zinc-200 font-medium line-clamp-2">${a.title}</p>
+            <div class="flex justify-between text-[11px] text-zinc-400 border-t border-bg-border/60 pt-2 font-mono">
               <span>Показы: ${a.impressions.toLocaleString()}</span>
               <span>Клики: ${a.clicks.toLocaleString()}</span>
             </div>
           </div>
 
           <!-- Variant B -->
-          <div class="p-4 rounded-xl ${isWinnerB ? 'bg-emerald-950/20 border-2 border-emerald-500' : 'bg-bg-input border border-bg-border'} space-y-3">
+          <div class="p-4 rounded-xl ${isWinnerB ? 'bg-white/[0.05] border-2 border-white/40' : 'bg-bg-input border border-bg-border'} space-y-3">
             <div class="flex items-center justify-between">
-              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-800 text-purple-400 border border-slate-700">Вариант B ${isWinnerB ? '🏆 ПОБЕДИТЕЛЬ' : ''}</span>
-              <span class="text-xs font-mono font-bold text-slate-200">CTR: <b class="text-purple-400 text-sm">${b.ctr}%</b></span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-white/[0.06] text-zinc-300 border border-white/[0.1]">Вариант B ${isWinnerB ? '🏆 ПОБЕДИТЕЛЬ' : ''}</span>
+              <span class="text-xs font-mono text-zinc-300">CTR: <b class="text-white text-sm">${b.ctr}%</b></span>
             </div>
-            <div class="aspect-video rounded-lg overflow-hidden bg-slate-900 border border-slate-800">
+            <div class="aspect-video rounded-lg overflow-hidden bg-zinc-900 border border-white/[0.08]">
               <img src="${b.thumbnail}" class="w-full h-full object-cover" alt="Thumbnail B">
             </div>
-            <p class="text-xs text-slate-200 font-semibold line-clamp-2">${b.title}</p>
-            <div class="flex justify-between text-[11px] text-slate-400 border-t border-bg-border/60 pt-2 font-mono">
+            <p class="text-xs text-zinc-200 font-medium line-clamp-2">${b.title}</p>
+            <div class="flex justify-between text-[11px] text-zinc-400 border-t border-bg-border/60 pt-2 font-mono">
               <span>Показы: ${b.impressions.toLocaleString()}</span>
               <span>Клики: ${b.clicks.toLocaleString()}</span>
             </div>

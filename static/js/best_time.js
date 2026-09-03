@@ -192,19 +192,19 @@ function renderBestTimeHeatmap(data) {
         </div>
 
         <div class="p-4 rounded-xl bg-bg-card border border-bg-border space-y-1.5">
-          <div class="text-[10px] font-bold uppercase text-purple-400 flex items-center gap-1">
+          <div class="text-[10px] font-semibold uppercase text-zinc-400 flex items-center gap-1">
             <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
             <span>Окно для YouTube Shorts:</span>
           </div>
-          <p class="text-xs text-slate-300 leading-relaxed">${data.strategy.shorts_timing}</p>
+          <p class="text-xs text-zinc-300 leading-relaxed">${data.strategy.shorts_timing}</p>
         </div>
 
         <div class="p-4 rounded-xl bg-bg-card border border-bg-border space-y-1.5">
-          <div class="text-[10px] font-bold uppercase text-emerald-400 flex items-center gap-1">
+          <div class="text-[10px] font-semibold uppercase text-zinc-400 flex items-center gap-1">
             <i data-lucide="video" class="w-3.5 h-3.5"></i>
             <span>Окно для длинных видео:</span>
           </div>
-          <p class="text-xs text-slate-300 leading-relaxed">${data.strategy.longform_timing}</p>
+          <p class="text-xs text-zinc-300 leading-relaxed">${data.strategy.longform_timing}</p>
         </div>
       </div>
 

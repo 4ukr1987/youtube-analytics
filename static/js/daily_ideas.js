@@ -192,19 +192,19 @@ function renderDailyIdeas(ideas, activeStatus) {
 
         <!-- Thumbnail concept & Bottom action -->
         <div class="p-3 rounded-lg bg-bg-input border border-bg-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div class="flex items-start gap-2 text-xs text-slate-400">
-            <i data-lucide="image" class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"></i>
+          <div class="flex items-start gap-2 text-xs text-zinc-400">
+            <i data-lucide="image" class="w-4 h-4 text-zinc-400 shrink-0 mt-0.5"></i>
             <div>
-              <b class="text-slate-200">Идея для превью:</b> ${idea.thumbnail_idea}
+              <b class="text-zinc-200">Идея для превью:</b> ${idea.thumbnail_idea}
             </div>
           </div>
 
           <div class="flex items-center gap-2 shrink-0">
-            <button onclick="copyToClipboard('${idea.title.replace(/'/g, "\\'")}', 'Заголовок скопирован!')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded transition-colors flex items-center gap-1">
-              <i data-lucide="copy" class="w-3 h-3 text-blue-400"></i>
+            <button onclick="copyToClipboard('${idea.title.replace(/'/g, "\\'")}', 'Заголовок скопирован!')" class="btn-secondary text-xs">
+              <i data-lucide="copy" class="w-3 h-3 text-zinc-400"></i>
               <span>Копия</span>
             </button>
-            <button onclick="prefillAITitle('${idea.title.replace(/'/g, "\\'")}')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded transition-colors flex items-center gap-1">
+            <button onclick="prefillAITitle('${idea.title.replace(/'/g, "\\'")}')" class="btn-primary text-xs">
               <i data-lucide="sparkles" class="w-3 h-3"></i>
               <span>AI План видео</span>
             </button>

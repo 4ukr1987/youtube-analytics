@@ -186,12 +186,12 @@ function renderStudioAnalytics(st) {
     st.demographics.forEach(dm => {
       demographicsHtml += `
         <div class="space-y-1">
-          <div class="flex justify-between text-xs font-medium text-slate-300">
+          <div class="flex justify-between text-xs font-medium text-zinc-300">
             <span>${dm.age} лет (${dm.gender})</span>
-            <span class="font-mono text-purple-400 font-semibold">${dm.percent}%</span>
+            <span class="font-mono text-white font-semibold">${dm.percent}%</span>
           </div>
-          <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-            <div class="bg-purple-500 h-full rounded-full transition-all duration-500" style="width: ${dm.percent}%"></div>
+          <div class="w-full bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-white h-full rounded-full transition-all duration-500" style="width: ${dm.percent}%"></div>
           </div>
         </div>
       `;
@@ -265,40 +265,40 @@ function renderStudioAnalytics(st) {
 
       <!-- Key Metrics Row -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-4 space-y-1 hover:border-white/[0.15] transition-colors">
-          <div class="text-[11px] font-semibold text-slate-400 uppercase flex items-center justify-between">
+        <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-4 space-y-1 hover:border-white/[0.15] transition-colors">
+          <div class="text-[11px] font-semibold text-zinc-400 uppercase flex items-center justify-between">
             <span>Просмотры (${st.period})</span>
-            <i data-lucide="eye" class="w-3.5 h-3.5 text-blue-400"></i>
+            <i data-lucide="eye" class="w-3.5 h-3.5 text-zinc-400"></i>
           </div>
-          <div class="text-2xl font-bold font-mono text-white">${imp.views_from_impressions.toLocaleString()} <span class="text-xs text-slate-400 font-normal">просм.</span></div>
-          <p class="text-[11px] text-slate-400">За всё время: <b class="text-slate-200 font-mono">${st.total_views.toLocaleString()}</b></p>
+          <div class="text-2xl font-bold font-mono text-white">${imp.views_from_impressions.toLocaleString()} <span class="text-xs text-zinc-400 font-normal">просм.</span></div>
+          <p class="text-[11px] text-zinc-400">За всё время: <b class="text-white font-mono">${st.total_views.toLocaleString()}</b></p>
         </div>
 
-        <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-4 space-y-1 hover:border-white/[0.15] transition-colors">
-          <div class="text-[11px] font-semibold text-slate-400 uppercase flex items-center justify-between">
+        <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-4 space-y-1 hover:border-white/[0.15] transition-colors">
+          <div class="text-[11px] font-semibold text-zinc-400 uppercase flex items-center justify-between">
             <span>Время просмотра</span>
-            <i data-lucide="clock" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-zinc-400"></i>
           </div>
-          <div class="text-2xl font-bold font-mono text-emerald-400">${imp.watch_time_hours} <span class="text-xs text-slate-400 font-normal">часов</span></div>
-          <p class="text-[11px] text-slate-400">Средняя длит.: <b class="text-emerald-400 font-mono">${imp.avg_view_duration_formatted}</b> (${imp.impressions_ctr}%)</p>
+          <div class="text-2xl font-bold font-mono text-white">${imp.watch_time_hours} <span class="text-xs text-zinc-400 font-normal">часов</span></div>
+          <p class="text-[11px] text-zinc-400">Средняя длит.: <b class="text-white font-mono">${imp.avg_view_duration_formatted}</b> (${imp.impressions_ctr}%)</p>
         </div>
 
-        <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-4 space-y-1 hover:border-white/[0.15] transition-colors">
-          <div class="text-[11px] font-semibold text-slate-400 uppercase flex items-center justify-between">
+        <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-4 space-y-1 hover:border-white/[0.15] transition-colors">
+          <div class="text-[11px] font-semibold text-zinc-400 uppercase flex items-center justify-between">
             <span>Подписчики & Контент</span>
-            <i data-lucide="users" class="w-3.5 h-3.5 text-purple-400"></i>
+            <i data-lucide="users" class="w-3.5 h-3.5 text-zinc-400"></i>
           </div>
-          <div class="text-2xl font-bold font-mono text-purple-400">${st.subscribers} <span class="text-xs text-slate-400 font-normal">сабов</span></div>
-          <p class="text-[11px] text-slate-400">Опубликовано: <b class="text-slate-200 font-mono">${st.video_count} видео</b></p>
+          <div class="text-2xl font-bold font-mono text-white">${st.subscribers} <span class="text-xs text-zinc-400 font-normal">сабов</span></div>
+          <p class="text-[11px] text-zinc-400">Опубликовано: <b class="text-white font-mono">${st.video_count} видео</b></p>
         </div>
 
-        <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-4 space-y-1 hover:border-white/[0.15] transition-colors">
-          <div class="text-[11px] font-semibold text-slate-400 uppercase flex items-center justify-between">
+        <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-4 space-y-1 hover:border-white/[0.15] transition-colors">
+          <div class="text-[11px] font-semibold text-zinc-400 uppercase flex items-center justify-between">
             <span>Монетизация & Доход</span>
-            <i data-lucide="dollar-sign" class="w-3.5 h-3.5 text-amber-400"></i>
+            <i data-lucide="dollar-sign" class="w-3.5 h-3.5 text-zinc-400"></i>
           </div>
-          <div class="text-2xl font-bold font-mono text-slate-300">$0.00</div>
-          <p class="text-[11px] text-amber-400/80 font-medium">Отключена (этап роста)</p>
+          <div class="text-2xl font-bold font-mono text-white">${st.estimated_revenue || '$0.00'}</div>
+          <p class="text-[11px] text-zinc-400">Расчетный доход студии</p>
         </div>
       </div>
 
@@ -402,24 +402,24 @@ function renderStudioAnalytics(st) {
         </div>
 
         <!-- Devices -->
-        <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-3">
+        <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5 space-y-3">
           <h4 class="font-bold text-sm text-white flex items-center gap-2">
-            <i data-lucide="smartphone" class="w-4 h-4 text-purple-400"></i>
+            <i data-lucide="smartphone" class="w-4 h-4 text-zinc-400"></i>
             Устройства зрителей
           </h4>
-          <p class="text-[11px] text-slate-400">Гаджеты, с которых открывают контент</p>
+          <p class="text-[11px] text-zinc-400">Гаджеты, с которых открывают контент</p>
           <div class="space-y-2 pt-2">
             ${devicesHtml}
           </div>
         </div>
 
         <!-- Traffic Sources -->
-        <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-3">
+        <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5 space-y-3">
           <h4 class="font-bold text-sm text-white flex items-center gap-2">
-            <i data-lucide="pie-chart" class="w-4 h-4 text-emerald-400"></i>
+            <i data-lucide="pie-chart" class="w-4 h-4 text-zinc-400"></i>
             Источники трафика
           </h4>
-          <p class="text-[11px] text-slate-400">Как алгоритмы показывают ваши ролики</p>
+          <p class="text-[11px] text-zinc-400">Как алгоритмы показывают ваши ролики</p>
           <div class="space-y-3.5 pt-2">
             ${trafficHtml}
           </div>
@@ -431,24 +431,24 @@ function renderStudioAnalytics(st) {
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         <!-- Search Terms -->
-        <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-3">
+        <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5 space-y-3">
           <h4 class="font-bold text-sm text-white flex items-center gap-2">
-            <i data-lucide="search" class="w-4 h-4 text-blue-400"></i>
+            <i data-lucide="search" class="w-4 h-4 text-zinc-400"></i>
             Поисковые запросы зрителей на YouTube
           </h4>
-          <p class="text-[11px] text-slate-400">Ключевые слова, по которым люди находили ваш канал в поиске</p>
+          <p class="text-[11px] text-zinc-400">Ключевые слова, по которым люди находили ваш канал в поиске</p>
           <div class="space-y-2 pt-2">
             ${searchTermsHtml}
           </div>
         </div>
 
         <!-- Demographics (Age & Gender) -->
-        <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-3">
+        <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5 space-y-3">
           <h4 class="font-bold text-sm text-white flex items-center gap-2">
-            <i data-lucide="users" class="w-4 h-4 text-purple-400"></i>
+            <i data-lucide="users" class="w-4 h-4 text-zinc-400"></i>
             Демография аудитории (Пол и Возраст)
           </h4>
-          <p class="text-[11px] text-slate-400">Распределение зрителей по возрастным группам</p>
+          <p class="text-[11px] text-zinc-400">Распределение зрителей по возрастным группам</p>
           <div class="space-y-3 pt-2">
             ${demographicsHtml}
           </div>

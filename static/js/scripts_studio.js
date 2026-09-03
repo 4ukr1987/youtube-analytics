@@ -186,19 +186,19 @@ function renderFullScriptView(s) {
       <!-- 3. Climax & Outro -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="p-4 rounded-xl bg-bg-card border border-bg-border space-y-2">
-          <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5">
-            <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+          <span class="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <i data-lucide="zap" class="w-3.5 h-3.5 text-zinc-400"></i>
             <span>Кульминация (Главный инсайт):</span>
           </span>
-          <p class="text-xs text-slate-200 leading-relaxed">${s.climax_and_reveal.spoken_text}</p>
+          <p class="text-xs text-zinc-300 leading-relaxed">${s.climax_and_reveal.spoken_text}</p>
         </div>
 
         <div class="p-4 rounded-xl bg-bg-card border border-bg-border space-y-2">
-          <span class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
-            <i data-lucide="arrow-right-circle" class="w-3.5 h-3.5"></i>
+          <span class="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <i data-lucide="arrow-right-circle" class="w-3.5 h-3.5 text-zinc-400"></i>
             <span>Финал & Бесшовный CTA:</span>
           </span>
-          <p class="text-xs text-slate-200 leading-relaxed">${s.outro_cta.spoken_text}</p>
+          <p class="text-xs text-zinc-300 leading-relaxed">${s.outro_cta.spoken_text}</p>
         </div>
       </div>
 
@@ -215,41 +215,41 @@ function renderShortsPackView(shorts) {
   let cardsHtml = '';
   shorts.forEach((sh, idx) => {
     cardsHtml += `
-      <div class="bg-bg-card border border-bg-border rounded-xl p-5 space-y-4 hover:border-slate-700 transition-all flex flex-col justify-between shadow-lg">
+      <div class="bg-bg-card border border-bg-border rounded-xl p-5 space-y-4 hover:border-zinc-700 transition-all flex flex-col justify-between shadow-lg">
         
         <div class="space-y-3">
           <div class="flex items-center justify-between border-b border-bg-border pb-2.5">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-950/60 text-purple-300 border border-purple-800/60 uppercase">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-white/[0.08] text-zinc-300 border border-white/[0.12] uppercase">
               Shorts #${idx + 1}: ${sh.angle}
             </span>
-            <span class="text-[10px] font-mono text-slate-400">45-55 сек</span>
+            <span class="text-[10px] font-mono text-zinc-400">45-55 сек</span>
           </div>
 
           <!-- On-screen text -->
-          <div class="p-2.5 rounded-lg bg-rose-950/30 border border-rose-800/50 space-y-1">
-            <span class="text-[9px] uppercase font-bold text-rose-400">Крупный текст на экране (0-3 сек):</span>
-            <div class="text-sm font-black text-white uppercase">${sh.on_screen_text}</div>
+          <div class="p-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] space-y-1">
+            <span class="text-[9px] uppercase font-bold text-zinc-400">Крупный текст на экране (0-3 сек):</span>
+            <div class="text-sm font-bold text-white uppercase">${sh.on_screen_text}</div>
           </div>
 
           <!-- Spoken dialogue -->
           <div class="space-y-1">
-            <span class="text-[10px] uppercase font-bold text-slate-400">Текст спикера (Voiceover):</span>
-            <p class="text-xs text-slate-200 leading-relaxed font-normal">${sh.script_dialogue}</p>
+            <span class="text-[10px] uppercase font-semibold text-zinc-400">Текст спикера (Voiceover):</span>
+            <p class="text-xs text-zinc-200 leading-relaxed font-normal">${sh.script_dialogue}</p>
           </div>
 
           <!-- Visual actions -->
-          <div class="p-2 rounded bg-bg-input border border-bg-border text-[11px] text-slate-400">
-            <b class="text-slate-300">Действия в кадре:</b> ${sh.visual_actions}
+          <div class="p-2 rounded bg-bg-input border border-bg-border text-[11px] text-zinc-400">
+            <b class="text-zinc-300">Действия в кадре:</b> ${sh.visual_actions}
           </div>
 
           <!-- Loop hook -->
-          <div class="p-2 rounded bg-emerald-950/30 border border-emerald-800/40 text-[11px] text-emerald-300">
+          <div class="p-2 rounded bg-white/[0.04] border border-white/[0.08] text-[11px] text-zinc-300">
             <b>Бесшовный Loop-переход:</b> «${sh.final_loop_hook}»
           </div>
         </div>
 
         <div class="pt-2 border-t border-bg-border">
-          <button onclick="copyText('${sh.script_dialogue.replace(/'/g, "\\'")}')" class="w-full btn-purple text-xs justify-center">
+          <button onclick="copyText('${sh.script_dialogue.replace(/'/g, "\\'")}')" class="w-full btn-secondary text-xs justify-center">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
             <span>Скопировать текст Shorts</span>
           </button>
@@ -261,10 +261,10 @@ function renderShortsPackView(shorts) {
 
   container.innerHTML = `
     <div class="fade-in space-y-4">
-      <div class="p-4 rounded-xl bg-purple-950/20 border border-purple-800/40 text-xs text-purple-300 flex items-center justify-between">
+      <div class="p-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs text-zinc-300 flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <i data-lucide="sparkles" class="w-4 h-4 text-purple-400 shrink-0"></i>
-          <span>Сгенерировано <b>3 вирусных сценария для YouTube Shorts / Reels</b></span>
+          <i data-lucide="sparkles" class="w-4 h-4 text-zinc-400 shrink-0"></i>
+          <span>Сгенерировано <b>3 сценария для YouTube Shorts / Reels</b></span>
         </div>
       </div>
 

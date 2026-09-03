@@ -180,19 +180,19 @@ function renderTranscriptView(data) {
 
           <!-- Actions -->
           <div class="flex flex-wrap items-center gap-2 shrink-0">
-            <button onclick="runHookAnalysis()" class="px-3 py-1.5 bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 text-xs font-semibold rounded-lg border border-amber-800/60 transition-colors flex items-center gap-1.5 shadow-sm" title="Анализ первых 30 секунд удержания">
-              <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
-              <span>🎣 Анализ хука (0-30s)</span>
+            <button onclick="runHookAnalysis()" class="btn-secondary text-xs" title="Анализ первых 30 секунд удержания">
+              <i data-lucide="zap" class="w-3.5 h-3.5 text-zinc-400"></i>
+              <span>Анализ хука (0-30s)</span>
             </button>
-            <button onclick="runShortsRepurposing()" class="px-3 py-1.5 bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 text-xs font-semibold rounded-lg border border-purple-800/60 transition-colors flex items-center gap-1.5 shadow-sm" title="Нарезка на 3 вирусных Shorts">
-              <i data-lucide="smartphone" class="w-3.5 h-3.5 text-purple-400"></i>
-              <span>📱 Нарезать на Shorts</span>
+            <button onclick="runShortsRepurposing()" class="btn-secondary text-xs" title="Нарезка на 3 вирусных Shorts">
+              <i data-lucide="smartphone" class="w-3.5 h-3.5 text-zinc-400"></i>
+              <span>Нарезать на Shorts</span>
             </button>
-            <button onclick="copyAllTranscript()" class="px-3 py-1.5 bg-bg-input hover:bg-slate-800 text-slate-200 text-xs font-medium rounded-lg border border-bg-border transition-colors flex items-center gap-1.5">
-              <i data-lucide="copy" class="w-3.5 h-3.5 text-sky-400"></i>
+            <button onclick="copyAllTranscript()" class="btn-secondary text-xs">
+              <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-400"></i>
               <span>Копировать весь текст</span>
             </button>
-            <button onclick="downloadSRT()" class="btn-primary text-xs flex items-center gap-1.5">
+            <button onclick="downloadSRT()" class="btn-primary text-xs">
               <i data-lucide="download" class="w-3.5 h-3.5"></i>
               <span>Скачать .SRT</span>
             </button>
@@ -344,9 +344,9 @@ async function runShortsRepurposing() {
   const title = (document.querySelector('h3.text-base.font-bold')?.innerText || 'Видео ролик').trim();
 
   container.innerHTML = `
-    <div class="p-4 rounded-xl bg-purple-950/20 border border-purple-800/40 text-center space-y-2 fade-in">
-      <div class="w-6 h-6 rounded-full border-2 border-purple-600 border-t-purple-300 animate-spin mx-auto"></div>
-      <div class="text-xs font-semibold text-purple-200">AI сканирует стенограмму и нарезает 3 вирусных Shorts...</div>
+    <div class="p-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-center space-y-2 fade-in">
+      <div class="w-6 h-6 rounded-full border-2 border-white/20 border-t-white animate-spin mx-auto"></div>
+      <div class="text-xs font-semibold text-zinc-300">AI сканирует стенограмму и готовит 3 сценария Shorts...</div>
     </div>
   `;
 
@@ -363,35 +363,35 @@ async function runShortsRepurposing() {
     let shortsHtml = '';
     shorts.forEach((s, idx) => {
       shortsHtml += `
-        <div class="p-4 rounded-xl bg-[#12131b] border border-purple-500/20 space-y-3 flex flex-col justify-between">
+        <div class="p-4 rounded-xl bg-[#111215] border border-white/[0.08] space-y-3 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 border-b border-white/[0.08] pb-2">
-              <span class="text-xs font-bold text-purple-300 flex items-center gap-1.5">
-                <i data-lucide="smartphone" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span class="text-xs font-semibold text-white flex items-center gap-1.5">
+                <i data-lucide="smartphone" class="w-3.5 h-3.5 text-zinc-400"></i>
                 <span>Shorts #${idx + 1}: ${s.title}</span>
               </span>
-              <span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-800 text-purple-300 text-[10px] font-mono">${s.target_length || '45 сек'}</span>
+              <span class="px-2 py-0.5 rounded bg-white/[0.06] border border-white/[0.1] text-zinc-300 text-[10px] font-mono">${s.target_length || '45 сек'}</span>
             </div>
 
             <div class="mt-2.5 space-y-2">
               <div class="text-xs text-white bg-black/40 p-2.5 rounded border border-white/[0.06] font-medium leading-relaxed">
-                <div class="text-[10px] uppercase text-purple-400 font-bold mb-1">Голос за кадром (Voiceover):</div>
+                <div class="text-[10px] uppercase text-zinc-400 font-bold mb-1">Голос за кадром (Voiceover):</div>
                 ${s.voiceover_script}
               </div>
 
-              <div class="p-2 rounded bg-bg-input text-[11px] text-slate-300">
-                <strong>Текст на экране:</strong> <span class="font-bold text-amber-300">${s.on_screen_text || ''}</span>
+              <div class="p-2 rounded bg-bg-input text-[11px] text-zinc-300">
+                <strong>Текст на экране:</strong> <span class="font-semibold text-white">${s.on_screen_text || ''}</span>
               </div>
 
-              <div class="p-2 rounded bg-bg-input text-[11px] text-slate-400">
+              <div class="p-2 rounded bg-bg-input text-[11px] text-zinc-400">
                 <strong>Монтаж (B-roll):</strong> ${s.b_roll_instructions || ''}
               </div>
             </div>
           </div>
 
           <div class="pt-2 flex items-center justify-between border-t border-white/[0.08]">
-            <span class="text-[10px] text-slate-500 font-mono">${s.hashtags || '#shorts #youtube'}</span>
-            <button onclick="copyToClipboard('${(s.voiceover_script || '').replace(/'/g, "\\'")}', 'Сценарий Shorts скопирован!')" class="px-2.5 py-1 bg-purple-600/30 hover:bg-purple-600 border border-purple-500/40 text-purple-200 hover:text-white rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors">
+            <span class="text-[10px] text-zinc-500 font-mono">${s.hashtags || '#shorts #youtube'}</span>
+            <button onclick="copyToClipboard('${(s.voiceover_script || '').replace(/'/g, "\\'")}', 'Сценарий Shorts скопирован!')" class="btn-secondary text-xs">
               <i data-lucide="copy" class="w-3 h-3"></i>
               <span>Копировать сценарий</span>
             </button>
@@ -401,13 +401,13 @@ async function runShortsRepurposing() {
     });
 
     container.innerHTML = `
-      <div class="p-4 rounded-xl bg-[#161720] border border-purple-500/30 space-y-4 fade-in mt-4 shadow-lg">
+      <div class="p-4 rounded-xl bg-[#111215] border border-white/[0.08] space-y-4 fade-in mt-4 shadow-lg">
         <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
           <div class="flex items-center gap-2">
-            <i data-lucide="smartphone" class="w-4 h-4 text-purple-400"></i>
-            <h4 class="text-xs font-bold uppercase text-white">1-Click AI Shorts Repurposer (3 Готовых вертикальных сценария)</h4>
+            <i data-lucide="smartphone" class="w-4 h-4 text-zinc-400"></i>
+            <h4 class="text-xs font-bold uppercase text-white">AI Shorts Repurposer (3 Готовых вертикальных сценария)</h4>
           </div>
-          <span class="text-xs text-slate-400 font-mono">Готово к съемке</span>
+          <span class="text-xs text-zinc-400 font-mono">Готово к съемке</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">

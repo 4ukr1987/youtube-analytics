@@ -294,18 +294,19 @@ body {
   justify-content: center;
   gap: 6px;
   padding: 6px 13px;
-  background: rgba(168, 85, 247, 0.12);
-  color: #c084fc;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f4f4f5;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   border-radius: 7px;
-  border: 1px solid rgba(168, 85, 247, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transition: all 0.15s ease;
   cursor: pointer;
 }
 .btn-purple:hover {
-  background: rgba(168, 85, 247, 0.2);
-  border-color: rgba(168, 85, 247, 0.45);
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.22);
   transform: translateY(-1px);
 }
 

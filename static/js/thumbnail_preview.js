@@ -356,22 +356,22 @@ function renderThumbnailAuditResults(a) {
 
   let tipsHtml = '';
   (a.pro_tips || []).forEach(t => {
-    tipsHtml += `<li class="flex items-start gap-2 text-xs text-slate-300"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5"></i><span>${t}</span></li>`;
+    tipsHtml += `<li class="flex items-start gap-2 text-xs text-zinc-300"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5"></i><span>${t}</span></li>`;
   });
 
   container.innerHTML = `
     <div class="fade-in p-5 rounded-xl bg-bg-card border border-bg-border space-y-4 shadow-lg">
       <div class="flex items-center justify-between border-b border-bg-border pb-3">
         <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded text-xs font-bold bg-purple-950/60 text-purple-300 border border-purple-800/60 uppercase">AI Thumbnail Score</span>
+          <span class="px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-white/[0.08] text-zinc-300 border border-white/[0.12] uppercase">AI Thumbnail Score</span>
           <span class="text-sm font-bold text-white">Прогноз CTR: <b class="text-emerald-400 font-mono">${a.ctr_score} / 100</b></span>
         </div>
-        <span class="text-xs px-2.5 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">Правило 3 сек: <b class="text-emerald-400">${a.rule_3_seconds}</b></span>
+        <span class="text-xs px-2.5 py-0.5 rounded bg-white/[0.06] text-zinc-300 border border-white/[0.1]">Правило 3 сек: <b class="text-white">${a.rule_3_seconds}</b></span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
         <div class="p-3 rounded-lg bg-bg-input border border-bg-border space-y-2">
-          <span class="text-[10px] font-bold uppercase text-emerald-400 flex items-center gap-1">
+          <span class="text-[10px] font-semibold uppercase text-zinc-400 flex items-center gap-1">
             <i data-lucide="thumbs-up" class="w-3 h-3"></i>
             <span>Сильные стороны:</span>
           </span>
@@ -379,7 +379,7 @@ function renderThumbnailAuditResults(a) {
         </div>
 
         <div class="p-3 rounded-lg bg-bg-input border border-bg-border space-y-2">
-          <span class="text-[10px] font-bold uppercase text-amber-400 flex items-center gap-1">
+          <span class="text-[10px] font-semibold uppercase text-zinc-400 flex items-center gap-1">
             <i data-lucide="shield-alert" class="w-3 h-3"></i>
             <span>Зоны риска:</span>
           </span>
@@ -387,7 +387,7 @@ function renderThumbnailAuditResults(a) {
         </div>
 
         <div class="p-3 rounded-lg bg-bg-input border border-bg-border space-y-2">
-          <span class="text-[10px] font-bold uppercase text-purple-400 flex items-center gap-1">
+          <span class="text-[10px] font-semibold uppercase text-zinc-400 flex items-center gap-1">
             <i data-lucide="sparkles" class="w-3 h-3"></i>
             <span>Советы по улучшению:</span>
           </span>
@@ -417,10 +417,10 @@ async function generateAIThumbnailConcepts() {
   if (!container) return;
 
   container.innerHTML = `
-    <div class="p-8 rounded-xl bg-[#12131b] border border-purple-500/30 text-center space-y-3 fade-in shadow-xl">
-      <div class="w-8 h-8 rounded-full border-2 border-purple-500 border-t-transparent animate-spin mx-auto"></div>
+    <div class="p-8 rounded-xl bg-[#111215] border border-white/[0.08] text-center space-y-3 fade-in shadow-xl">
+      <div class="w-8 h-8 rounded-full border-2 border-white/20 border-t-white animate-spin mx-auto"></div>
       <div class="text-sm font-bold text-white">Генерация 3 психологических концептов превью и промптов...</div>
-      <p class="text-xs text-slate-400 max-w-md mx-auto">Анализ топовых CTR-паттернов YouTube, расчет контраста, подбор хук-текста и генерация промптов для Midjourney / Imagen...</p>
+      <p class="text-xs text-zinc-400 max-w-md mx-auto">Анализ топовых CTR-паттернов YouTube, расчет контраста, подбор хук-текста и генерация промптов для Midjourney / Imagen...</p>
     </div>
   `;
 
@@ -455,18 +455,18 @@ function renderThumbnailConcepts(concepts) {
   concepts.forEach((c, idx) => {
     const safePrompt = (c.midjourney_prompt || '').replace(/'/g, "\\'");
     conceptsHtml += `
-      <div class="p-5 rounded-xl bg-[#161720] border border-white/[0.08] hover:border-purple-500/40 transition-all space-y-4 shadow-lg flex flex-col justify-between">
+      <div class="p-5 rounded-xl bg-[#111215] border border-white/[0.08] hover:border-zinc-500 transition-all space-y-4 shadow-lg flex flex-col justify-between">
         <div class="space-y-3">
           
           <div class="flex items-center justify-between">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-purple-950/60 text-purple-300 border border-purple-800/60">${c.concept_name || `Концепт ${idx + 1}`}</span>
-            <span class="text-xs font-mono font-bold text-emerald-400">${c.ctr_score || '9.0 / 10'} CTR</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium uppercase bg-white/[0.08] text-zinc-300 border border-white/[0.12]">${c.concept_name || `Концепт ${idx + 1}`}</span>
+            <span class="text-xs font-mono font-bold text-white">${c.ctr_score || '9.0 / 10'} CTR</span>
           </div>
 
           <!-- Hook Text Mockup -->
           <div class="p-3 rounded-lg bg-black/60 border border-white/10 text-center">
-            <div class="text-[10px] uppercase text-slate-500 mb-1">Текст на превью (Hook):</div>
-            <div class="text-lg font-black tracking-tight text-amber-300 uppercase font-sans drop-shadow-md">
+            <div class="text-[10px] uppercase text-zinc-500 mb-1">Текст на превью (Hook):</div>
+            <div class="text-lg font-bold tracking-tight text-white uppercase font-sans drop-shadow-md">
               "${c.hook_text || 'СЕКРЕТ РАСКРЫТ'}"
             </div>
           </div>
@@ -474,16 +474,16 @@ function renderThumbnailConcepts(concepts) {
           <!-- Composition Details -->
           <div class="space-y-2 text-xs">
             <div>
-              <span class="text-slate-400 text-[11px] block">Композиция:</span>
-              <span class="text-slate-200">${c.visual_composition}</span>
+              <span class="text-zinc-400 text-[11px] block">Композиция:</span>
+              <span class="text-zinc-200">${c.visual_composition}</span>
             </div>
             <div>
-              <span class="text-slate-400 text-[11px] block">Эмоция лица:</span>
-              <span class="text-slate-200">${c.facial_expression}</span>
+              <span class="text-zinc-400 text-[11px] block">Эмоция лица:</span>
+              <span class="text-zinc-200">${c.facial_expression}</span>
             </div>
             <div>
-              <span class="text-slate-400 text-[11px] block">Цветовой контраст:</span>
-              <span class="text-slate-300 text-[11px] font-mono">${c.color_scheme}</span>
+              <span class="text-zinc-400 text-[11px] block">Цветовой контраст:</span>
+              <span class="text-zinc-300 text-[11px] font-mono">${c.color_scheme}</span>
             </div>
           </div>
 
@@ -491,14 +491,14 @@ function renderThumbnailConcepts(concepts) {
 
         <!-- Midjourney Prompt & Copy Button -->
         <div class="border-t border-white/[0.06] pt-3 space-y-2">
-          <div class="text-[10px] font-bold uppercase text-purple-400 flex items-center justify-between">
+          <div class="text-[10px] font-semibold uppercase text-zinc-400 flex items-center justify-between">
             <span>Промпт (Midjourney / Imagen / Flux):</span>
-            <button onclick="copyToClipboard('${safePrompt}')" class="text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+            <button onclick="copyToClipboard('${safePrompt}')" class="text-zinc-400 hover:text-white flex items-center gap-1 transition-colors">
               <i data-lucide="copy" class="w-3 h-3"></i>
               <span>Скопировать</span>
             </button>
           </div>
-          <div class="p-2.5 rounded bg-[#101118] border border-white/[0.04] text-[11px] font-mono text-slate-300 leading-relaxed max-h-24 overflow-y-auto select-all">
+          <div class="p-2.5 rounded bg-[#14151a] border border-white/[0.04] text-[11px] font-mono text-zinc-300 leading-relaxed max-h-24 overflow-y-auto select-all">
             ${c.midjourney_prompt}
           </div>
         </div>
@@ -511,10 +511,10 @@ function renderThumbnailConcepts(concepts) {
     <div class="fade-in space-y-3">
       <div class="flex items-center justify-between px-1">
         <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-          <i data-lucide="palette" class="w-4 h-4 text-purple-400"></i>
+          <i data-lucide="palette" class="w-4 h-4 text-zinc-400"></i>
           3 Психологических концепта превью
         </h4>
-        <span class="text-xs text-slate-400 font-mono">Готовые промпты для генерации</span>
+        <span class="text-xs text-zinc-400 font-mono">Готовые промпты для генерации</span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">

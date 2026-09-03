@@ -209,38 +209,38 @@
               <span>A/B Сплит-тест</span>
             </button>
             <button onclick="switchSubtab('video_hub', 'comments_mining')" class="subtab-btn" data-subtab="comments_mining" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;">
-              <i data-lucide="message-square" class="w-3.5 h-3.5 text-purple-400"></i>
+              <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
               <span>Боли зрителей (Комментарии)</span>
             </button>
           </div>
         </div>
 
         <!-- Active Video Context Banner (Persistent across subtabs) -->
-        <div id="activeVideoBanner" class="hidden p-3 rounded-xl bg-[#12131b] border border-blue-500/30 flex items-center justify-between gap-3 shadow-md">
+        <div id="activeVideoBanner" class="hidden p-3 rounded-xl bg-[#111215] border border-white/[0.08] flex items-center justify-between gap-3 shadow-md">
           <div class="flex items-center gap-3 min-w-0">
             <img id="activeVideoBannerThumb" src="" alt="Active Video" class="w-16 h-10 object-cover rounded-lg border border-white/10 shrink-0">
             <div class="min-w-0">
-              <div class="text-[10px] font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1.5">
-                <i data-lucide="check-circle" class="w-3 h-3 text-blue-400"></i>
+              <div class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="check-circle" class="w-3 h-3 text-white"></i>
                 <span>Активное видео в лаборатории:</span>
               </div>
               <div id="activeVideoBannerTitle" class="text-xs font-semibold text-white truncate max-w-xl"></div>
             </div>
           </div>
-          <span id="activeVideoBannerMeta" class="text-[11px] text-slate-400 font-mono shrink-0 hidden sm:inline px-2.5 py-1 bg-[#161720] rounded-md border border-white/[0.06]"></span>
+          <span id="activeVideoBannerMeta" class="text-[11px] text-zinc-400 font-mono shrink-0 hidden sm:inline px-2.5 py-1 bg-[#14151a] rounded-md border border-white/[0.06]"></span>
         </div>
 
         <!-- Subpanel 1: SEO & Tags -->
         <div class="subtab-panel space-y-6" data-panel="video_seo">
-          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5">
+          <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5">
             <h2 class="text-sm font-bold text-white mb-1">SEO-Инспектор видео (0–100 Score)</h2>
-            <p class="text-xs text-slate-400 mb-3">Введите ссылку на любое видео YouTube для извлечения скрытых тегов и аудита метаданных</p>
+            <p class="text-xs text-zinc-400 mb-3">Введите ссылку на любое видео YouTube для извлечения скрытых тегов и аудита метаданных</p>
             <form onsubmit="analyzeVideoSearch(); return false;" class="flex gap-2">
               <input 
                 type="text" 
                 id="videoUrlInput" 
                 placeholder="https://www.youtube.com/watch?v=kUcQwawVaIE или ID видео" 
-                class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                class="flex-1 bg-[#14151a] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-zinc-200 focus:outline-none focus:border-white/30"
               >
               <button type="submit" class="btn-primary">
                 <i data-lucide="search" class="w-3.5 h-3.5"></i>
@@ -253,16 +253,16 @@
 
         <!-- Subpanel 2: Thumbnail Feed Simulator -->
         <div class="subtab-panel hidden space-y-6" data-panel="thumbnail_preview">
-          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-5">
+          <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5 space-y-5">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
               <div>
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                  <i data-lucide="image" class="w-4 h-4 text-purple-400"></i>
+                  <i data-lucide="image" class="w-4 h-4 text-zinc-400"></i>
                   Симулятор ленты YouTube & Стресс-тест обложек
                 </h3>
-                <p class="text-xs text-slate-400">Проверьте, выделяется ли ваша обложка среди реальных конкурентов</p>
+                <p class="text-xs text-zinc-400">Проверьте, выделяется ли ваша обложка среди реальных конкурентов</p>
               </div>
-              <div class="flex items-center gap-1.5 p-1 bg-[#161720] rounded-lg border border-white/[0.08]">
+              <div class="flex items-center gap-1.5 p-1 bg-[#14151a] rounded-lg border border-white/[0.08]">
                 <button onclick="switchViewport('desktop')" id="vpBtn_desktop" class="vp-btn active">ПК Сетка (3×3)</button>
                 <button onclick="switchViewport('mobile')" id="vpBtn_mobile" class="vp-btn">Смартфон</button>
                 <button onclick="switchViewport('sidebar')" id="vpBtn_sidebar" class="vp-btn">Боковая колонка</button>
@@ -270,35 +270,35 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
-              <div class="md:col-span-4 p-4 rounded-xl bg-[#161720] border-2 border-dashed border-slate-700 hover:border-purple-500/60 transition-colors text-center space-y-2 relative">
+              <div class="md:col-span-4 p-4 rounded-xl bg-[#14151a] border-2 border-dashed border-zinc-700 hover:border-zinc-500 transition-colors text-center space-y-2 relative">
                 <input type="file" id="thumbFileInput" onchange="handleFileUpload(event)" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
-                <div class="w-10 h-10 rounded-full bg-purple-950/50 text-purple-400 flex items-center justify-center mx-auto">
+                <div class="w-10 h-10 rounded-full bg-white/[0.06] text-white flex items-center justify-center mx-auto">
                   <i data-lucide="upload-cloud" class="w-5 h-5"></i>
                 </div>
-                <div class="text-xs font-semibold text-slate-200">Перетащите обложку сюда</div>
-                <p class="text-[10px] text-slate-400">PNG, JPG, WEBP (16:9)</p>
-                <button type="button" class="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-md border border-slate-700">Выбрать файл</button>
+                <div class="text-xs font-semibold text-zinc-200">Перетащите обложку сюда</div>
+                <p class="text-[10px] text-zinc-400">PNG, JPG, WEBP (16:9)</p>
+                <button type="button" class="btn-secondary text-xs">Выбрать файл</button>
               </div>
 
               <div class="md:col-span-8 space-y-3">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Заголовок вашего видео</label>
-                    <input type="text" id="mockTitleInput" oninput="handleMockMetaChange()" value="Я Проверил 7 Скрытых Нейросетей (Они Заменят 90% Профессий)" class="w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500">
+                    <label class="block text-[11px] font-semibold text-zinc-300 uppercase mb-1">Заголовок вашего видео</label>
+                    <input type="text" id="mockTitleInput" oninput="handleMockMetaChange()" value="Я Проверил 7 Скрытых Нейросетей (Они Заменят 90% Профессий)" class="w-full bg-[#14151a] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-white/30">
                   </div>
                   <div>
-                    <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Имя вашего канала</label>
-                    <input type="text" id="mockChannelInput" oninput="handleMockMetaChange()" value="Мой YouTube Канал" class="w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500">
+                    <label class="block text-[11px] font-semibold text-zinc-300 uppercase mb-1">Имя вашего канала</label>
+                    <input type="text" id="mockChannelInput" oninput="handleMockMetaChange()" value="Мой YouTube Канал" class="w-full bg-[#14151a] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-white/30">
                   </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
-                  <input type="text" id="mockNicheInput" value="Искусственный интеллект" placeholder="Ниша для загрузки конкурентов..." class="flex-1 w-full bg-[#161720] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500">
+                  <input type="text" id="mockNicheInput" value="Искусственный интеллект" placeholder="Ниша для загрузки конкурентов..." class="flex-1 w-full bg-[#14151a] border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-white/30">
                   <button onclick="loadCompetitorFeed()" class="btn-primary text-xs shrink-0 w-full sm:w-auto">
                     <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
                     <span>Обновить ленту</span>
                   </button>
-                  <button onclick="runAIThumbnailAudit()" class="btn-purple text-xs shrink-0 w-full sm:w-auto">
+                  <button onclick="runAIThumbnailAudit()" class="btn-secondary text-xs shrink-0 w-full sm:w-auto">
                     <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
                     <span>AI-Аудит обложки</span>
                   </button>
@@ -313,7 +313,7 @@
             <!-- Stress tests toolbar -->
             <div class="flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.08] pt-3">
               <div class="flex flex-wrap items-center gap-2">
-                <span class="text-[11px] font-semibold uppercase text-slate-400">Стресс-тесты:</span>
+                <span class="text-[11px] font-semibold uppercase text-zinc-400">Стресс-тесты:</span>
                 <button onclick="toggleVisualFilter('blur')" id="filterBtn_blur" class="stress-btn">
                   <i data-lucide="eye" class="w-3.5 h-3.5"></i>
                   <span>👁️ Размытие (3-Sec Blur)</span>
@@ -332,20 +332,20 @@
 
           <div id="aiThumbnailConceptsContainer"></div>
           <div id="thumbnailAuditResults"></div>
-          <div id="simulatorFeedContainer" class="p-6 rounded-2xl bg-[#12131b] border border-white/[0.08]"></div>
+          <div id="simulatorFeedContainer" class="p-6 rounded-2xl bg-[#111215] border border-white/[0.08]"></div>
         </div>
 
         <!-- Subpanel 3: Transcripts & AI Summary -->
         <div class="subtab-panel hidden space-y-6" data-panel="transcripts">
-          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5">
+          <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5">
             <h2 class="text-sm font-bold text-white mb-1">Транскрибация видео & AI Резюме</h2>
-            <p class="text-xs text-slate-400 mb-3">Извлечение 100% текста с таймкодами и создание краткого конспекта сути видео</p>
+            <p class="text-xs text-zinc-400 mb-3">Извлечение 100% текста с таймкодами и создание краткого конспекта сути видео</p>
             <form onsubmit="extractTranscriptSearch(); return false;" class="flex gap-2">
               <input 
                 type="text" 
                 id="transcriptSearchInput" 
                 placeholder="https://www.youtube.com/watch?v=kUcQwawVaIE или ID видео" 
-                class="flex-1 bg-[#161720] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500"
+                class="flex-1 bg-[#14151a] border border-white/[0.08] rounded-lg px-3.5 py-2 text-xs text-zinc-200 focus:outline-none focus:border-white/30"
               >
               <button type="submit" class="btn-primary">
                 <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
@@ -358,12 +358,12 @@
 
         <!-- Subpanel 4: A/B Testing -->
         <div class="subtab-panel hidden space-y-6" data-panel="ab_testing">
-          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h2 class="text-sm font-bold text-white">A/B Тестирование обложек и заголовков</h2>
-              <p class="text-xs text-slate-400">Ротация вариантов каждые 24 часа и расчет реального CTR для выявления победителя</p>
+              <p class="text-xs text-zinc-400">Ротация вариантов каждые 24 часа и расчет реального CTR для выявления победителя</p>
             </div>
-            <button onclick="openCreateABModal()" class="btn-purple text-xs">
+            <button onclick="openCreateABModal()" class="btn-primary text-xs">
               <i data-lucide="plus" class="w-3.5 h-3.5"></i>
               <span>Создать A/B тест</span>
             </button>
@@ -373,23 +373,23 @@
 
         <!-- Subpanel 5: Audience Comments & Pain Points Mining -->
         <div class="subtab-panel hidden space-y-6" data-panel="comments_mining">
-          <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-4">
+          <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5 space-y-4">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
               <div>
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                  <i data-lucide="message-square" class="w-4 h-4 text-purple-400"></i>
+                  <i data-lucide="message-square" class="w-4 h-4 text-zinc-400"></i>
                   Анализ комментариев и болей аудитории (Audience Pain Points Mining)
                 </h3>
-                <p class="text-xs text-slate-400">Парсинг реальных комментариев зрителей под любым видео и AI-кластеризация их скрытых желаний, вопросов и идей</p>
+                <p class="text-xs text-zinc-400">Парсинг реальных комментариев зрителей под любым видео и AI-кластеризация их скрытых желаний, вопросов и идей</p>
               </div>
             </div>
 
             <div class="flex gap-2">
               <div class="relative flex-1">
-                <i data-lucide="youtube" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-                <input type="text" id="commentsVideoInput" placeholder="Вставьте ссылку на видео или ID (например: https://youtube.com/watch?v=...)" class="w-full bg-[#0b0c13] border border-white/[0.08] rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors">
+                <i data-lucide="youtube" class="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                <input type="text" id="commentsVideoInput" placeholder="Вставьте ссылку на видео или ID (например: https://youtube.com/watch?v=...)" class="w-full bg-[#14151a] border border-white/[0.08] rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors">
               </div>
-              <button onclick="searchAndMineComments()" class="btn-purple text-xs px-4 py-2 flex items-center gap-2 shrink-0">
+              <button onclick="searchAndMineComments()" class="btn-primary text-xs px-4 py-2 flex items-center gap-2 shrink-0">
                 <i data-lucide="sparkles" class="w-4 h-4"></i>
                 <span>Кластеризовать боли</span>
               </button>
@@ -533,7 +533,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#12131b] border border-white/[0.08] p-3 rounded-xl shadow-sm">
           <div>
             <h1 class="text-sm md:text-base font-bold text-white flex items-center gap-2">
-              <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+              <i data-lucide="sparkles" class="w-4 h-4 text-zinc-400"></i>
               AI Сценарный цех & Идеи (Gemini 3.7)
             </h1>
             <p class="text-xs text-slate-400">Ежедневные вирусные идеи, поминутные сценарии с B-Roll и пакеты Shorts</p>
@@ -708,14 +708,14 @@
 
               <!-- Niche Preset Chips -->
               <div class="flex flex-wrap items-center gap-1.5">
-                <span class="text-[10px] text-slate-400 font-bold uppercase mr-1">Быстрые ниши:</span>
-                <button type="button" onclick="setHarvesterPreset('ИИ агенты')" class="px-2.5 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-900/60 text-blue-300 border border-blue-800/60 text-xs font-semibold flex items-center gap-1 transition-colors">
+                <span class="text-[10px] text-zinc-400 font-bold uppercase mr-1">Быстрые ниши:</span>
+                <button type="button" onclick="setHarvesterPreset('ИИ агенты')" class="px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-zinc-300 hover:text-white border border-white/[0.08] text-xs font-medium flex items-center gap-1 transition-colors">
                   <span>🤖 ИИ агенты</span>
                 </button>
-                <button type="button" onclick="setHarvesterPreset('ASMR')" class="px-2.5 py-1 rounded-lg bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 border border-purple-800/60 text-xs font-semibold flex items-center gap-1 transition-colors">
+                <button type="button" onclick="setHarvesterPreset('ASMR')" class="px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-zinc-300 hover:text-white border border-white/[0.08] text-xs font-medium flex items-center gap-1 transition-colors">
                   <span>🎧 ASMR</span>
                 </button>
-                <button type="button" onclick="setHarvesterPreset('ИИ аватары с короткими историями')" class="px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-800/60 text-xs font-semibold flex items-center gap-1 transition-colors">
+                <button type="button" onclick="setHarvesterPreset('ИИ аватары с короткими историями')" class="px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-zinc-300 hover:text-white border border-white/[0.08] text-xs font-medium flex items-center gap-1 transition-colors">
                   <span>🎭 ИИ аватары & истории</span>
                 </button>
               </div>
@@ -953,29 +953,29 @@
   
   <!-- Create A/B Test Modal -->
   <div id="createABModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-[#12131b] border border-white/[0.12] rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+    <div class="bg-[#111215] border border-white/[0.12] rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
         <h3 class="font-bold text-sm text-white flex items-center gap-2">
-          <i data-lucide="git-branch" class="w-4 h-4 text-purple-400"></i>
+          <i data-lucide="git-branch" class="w-4 h-4 text-zinc-400"></i>
           Создать новый A/B тест
         </h3>
-        <button onclick="closeCreateABModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+        <button onclick="closeCreateABModal()" class="text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <form onsubmit="handleCreateABSubmit(event); return false;" class="space-y-3">
-        <input type="text" id="abModalVideoId" required placeholder="ID видео (11 символов) или URL" class="w-full bg-[#161720] border border-white/[0.08] rounded px-3 py-1.5 text-xs text-white">
+        <input type="text" id="abModalVideoId" required placeholder="ID видео (11 символов) или URL" class="w-full bg-[#14151a] border border-white/[0.08] rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-white/30">
         <div class="grid grid-cols-2 gap-3">
-          <div class="p-3 rounded-lg bg-[#161720] border border-white/[0.06] space-y-2">
-            <span class="text-xs font-bold text-slate-200">Вариант A (Оригинал)</span>
-            <input type="text" id="abModalTitleA" placeholder="Заголовок A" class="w-full bg-[#0d0e14] border border-white/[0.08] rounded px-2.5 py-1 text-xs text-white">
+          <div class="p-3 rounded-lg bg-[#14151a] border border-white/[0.06] space-y-2">
+            <span class="text-xs font-bold text-zinc-200">Вариант A (Оригинал)</span>
+            <input type="text" id="abModalTitleA" placeholder="Заголовок A" class="w-full bg-[#0c0d0e] border border-white/[0.08] rounded px-2.5 py-1 text-xs text-white focus:outline-none focus:border-white/30">
           </div>
-          <div class="p-3 rounded-lg bg-[#161720] border border-purple-800/40 space-y-2">
-            <span class="text-xs font-bold text-purple-400">Вариант B (Тест)</span>
-            <input type="text" id="abModalTitleB" required placeholder="Заголовок B" class="w-full bg-[#0d0e14] border border-white/[0.08] rounded px-2.5 py-1 text-xs text-white">
+          <div class="p-3 rounded-lg bg-[#14151a] border border-white/[0.1] space-y-2">
+            <span class="text-xs font-bold text-white">Вариант B (Тест)</span>
+            <input type="text" id="abModalTitleB" required placeholder="Заголовок B" class="w-full bg-[#0c0d0e] border border-white/[0.08] rounded px-2.5 py-1 text-xs text-white focus:outline-none focus:border-white/30">
           </div>
         </div>
         <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeCreateABModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded text-xs">Отмена</button>
-          <button type="submit" class="btn-purple text-xs">Запустить A/B тест</button>
+          <button type="button" onclick="closeCreateABModal()" class="btn-secondary text-xs">Отмена</button>
+          <button type="submit" class="btn-primary text-xs">Запустить A/B тест</button>
         </div>
       </form>
     </div>
@@ -1094,24 +1094,24 @@
   </nav>
 
   <!-- Modular Scripts with Cache-Busting -->
-  <script src="js/core.js?v=27.0"></script>
-  <script src="js/video_seo.js?v=27.0"></script>
-  <script src="js/comments_mining.js?v=27.0"></script>
-  <script src="js/daily_ideas.js?v=27.0"></script>
-  <script src="js/scripts_studio.js?v=27.0"></script>
-  <script src="js/thumbnail_preview.js?v=27.0"></script>
-  <script src="js/transcripts.js?v=27.0"></script>
-  <script src="js/channel_audit.js?v=27.0"></script>
-  <script src="js/best_time.js?v=27.0"></script>
-  <script src="js/outliers.js?v=27.0"></script>
-  <script src="js/harvester.js?v=27.0"></script>
-  <script src="js/history.js?v=27.0"></script>
-  <script src="js/studio.js?v=27.0"></script>
-  <script src="js/ab_testing.js?v=27.0"></script>
-  <script src="js/bulk_tools.js?v=27.0"></script>
-  <script src="js/keywords.js?v=27.0"></script>
-  <script src="js/competitors.js?v=27.0"></script>
-  <script src="js/ai_studio.js?v=27.0"></script>
-  <script src="app.js?v=27.0"></script>
+  <script src="js/core.js?v=28.0"></script>
+  <script src="js/video_seo.js?v=28.0"></script>
+  <script src="js/comments_mining.js?v=28.0"></script>
+  <script src="js/daily_ideas.js?v=28.0"></script>
+  <script src="js/scripts_studio.js?v=28.0"></script>
+  <script src="js/thumbnail_preview.js?v=28.0"></script>
+  <script src="js/transcripts.js?v=28.0"></script>
+  <script src="js/channel_audit.js?v=28.0"></script>
+  <script src="js/best_time.js?v=28.0"></script>
+  <script src="js/outliers.js?v=28.0"></script>
+  <script src="js/harvester.js?v=28.0"></script>
+  <script src="js/history.js?v=28.0"></script>
+  <script src="js/studio.js?v=28.0"></script>
+  <script src="js/ab_testing.js?v=28.0"></script>
+  <script src="js/bulk_tools.js?v=28.0"></script>
+  <script src="js/keywords.js?v=28.0"></script>
+  <script src="js/competitors.js?v=28.0"></script>
+  <script src="js/ai_studio.js?v=28.0"></script>
+  <script src="app.js?v=28.0"></script>
 </body>
 </html>

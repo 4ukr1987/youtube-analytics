@@ -125,21 +125,21 @@ function renderHarvestResults(data) {
     <div class="space-y-4 fade-in">
       <!-- Summary Metric Cards -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="p-3 rounded-xl bg-[#12131b] border border-blue-500/30">
-          <div class="text-[10px] font-semibold text-slate-400 uppercase">Собрано видео в базу</div>
-          <div class="text-lg font-bold text-blue-400 font-mono mt-0.5">${data.videos_harvested}</div>
+        <div class="p-3 rounded-xl bg-[#111215] border border-white/[0.08]">
+          <div class="text-[10px] font-semibold text-zinc-400 uppercase">Собрано видео в базу</div>
+          <div class="text-lg font-bold text-white font-mono mt-0.5">${data.videos_harvested}</div>
         </div>
-        <div class="p-3 rounded-xl bg-[#12131b] border border-purple-500/30">
-          <div class="text-[10px] font-semibold text-slate-400 uppercase">Каналов обнаружено</div>
-          <div class="text-lg font-bold text-purple-400 font-mono mt-0.5">${data.channels_discovered}</div>
+        <div class="p-3 rounded-xl bg-[#111215] border border-white/[0.08]">
+          <div class="text-[10px] font-semibold text-zinc-400 uppercase">Каналов обнаружено</div>
+          <div class="text-lg font-bold text-white font-mono mt-0.5">${data.channels_discovered}</div>
         </div>
-        <div class="p-3 rounded-xl bg-[#12131b] border border-amber-500/30">
-          <div class="text-[10px] font-semibold text-slate-400 uppercase">🔥 Виральных аномалий (>2x)</div>
-          <div class="text-lg font-bold text-amber-400 font-mono mt-0.5">${data.outliers_found}</div>
+        <div class="p-3 rounded-xl bg-[#111215] border border-white/[0.08]">
+          <div class="text-[10px] font-semibold text-zinc-400 uppercase">Виральных аномалий (>2x)</div>
+          <div class="text-lg font-bold text-white font-mono mt-0.5">${data.outliers_found}</div>
         </div>
-        <div class="p-3 rounded-xl bg-[#12131b] border border-emerald-500/30">
-          <div class="text-[10px] font-semibold text-slate-400 uppercase">Скорость сбора</div>
-          <div class="text-lg font-bold text-emerald-400 font-mono mt-0.5">${data.elapsed_seconds} сек</div>
+        <div class="p-3 rounded-xl bg-[#111215] border border-white/[0.08]">
+          <div class="text-[10px] font-semibold text-zinc-400 uppercase">Скорость сбора</div>
+          <div class="text-lg font-bold text-white font-mono mt-0.5">${data.elapsed_seconds} сек</div>
         </div>
       </div>
 

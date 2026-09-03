@@ -18,10 +18,10 @@ async function mineAudiencePainPoints(videoIdOrUrl, videoTitle = "") {
   if (!container) return;
 
   container.innerHTML = `
-    <div class="p-10 rounded-xl bg-[#12131b] border border-purple-500/30 text-center space-y-3 fade-in shadow-xl">
-      <div class="w-8 h-8 rounded-full border-2 border-purple-500 border-t-transparent animate-spin mx-auto"></div>
+    <div class="p-10 rounded-xl bg-[#111215] border border-white/[0.08] text-center space-y-3 fade-in shadow-xl">
+      <div class="w-8 h-8 rounded-full border-2 border-white/20 border-t-white animate-spin mx-auto"></div>
       <div class="text-sm font-bold text-white">Парсинг комментариев и кластеризация болей через Gemini 3.8...</div>
-      <p class="text-xs text-slate-400 max-w-md mx-auto">Анализируем реакции зрителей, выявляем нераскрытые вопросы, скрытые возражения и идеи для следующих видео...</p>
+      <p class="text-xs text-zinc-400 max-w-md mx-auto">Анализируем реакции зрителей, выявляем нераскрытые вопросы, скрытые возражения и идеи для следующих видео...</p>
     </div>
   `;
 
@@ -67,16 +67,16 @@ function renderCommentsMiningResults(data) {
   topics.forEach((t, i) => {
     const safeTopic = (t.topic || '').replace(/'/g, "\\'");
     topicsHtml += `
-      <div class="p-3.5 rounded-lg bg-[#161720] border border-white/[0.06] hover:border-purple-500/40 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="p-3.5 rounded-lg bg-[#14151a] border border-white/[0.06] hover:border-zinc-500 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div class="space-y-1 min-w-0">
           <div class="flex items-center gap-2">
-            <span class="w-5 h-5 rounded-full bg-purple-950 text-purple-400 text-[10px] font-bold flex items-center justify-center shrink-0">#${i + 1}</span>
+            <span class="w-5 h-5 rounded-full bg-white/[0.08] text-white text-[10px] font-bold flex items-center justify-center shrink-0">#${i + 1}</span>
             <span class="text-xs font-bold text-white">${t.topic}</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-950/50 text-emerald-400 border border-emerald-800/40 shrink-0">${t.expected_interest || 'Спрос: Высокий'}</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-white/[0.06] text-zinc-300 border border-white/[0.1] shrink-0">${t.expected_interest || 'Спрос: Высокий'}</span>
           </div>
-          <p class="text-[11px] text-slate-400 pl-7">${t.demand_reason}</p>
+          <p class="text-[11px] text-zinc-400 pl-7">${t.demand_reason}</p>
         </div>
-        <button onclick="transferTopicToScriptStudio('${safeTopic}')" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-semibold flex items-center gap-1.5 transition-colors shrink-0 self-start sm:self-auto">
+        <button onclick="transferTopicToScriptStudio('${safeTopic}')" class="btn-primary text-xs shrink-0 self-start sm:self-auto">
           <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
           <span>В сценарный цех</span>
         </button>
@@ -147,14 +147,14 @@ function renderCommentsMiningResults(data) {
     <div class="fade-in space-y-6">
       
       <!-- Video Summary Header -->
-      <div class="p-4 rounded-xl bg-gradient-to-r from-purple-950/40 to-blue-950/30 border border-purple-800/40 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="p-4 rounded-xl bg-[#111215] border border-white/[0.08] flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-purple-400 mb-1">
+          <div class="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 mb-1">
             <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
             <span>Анализ ${data.comments_count} комментариев зрителей</span>
           </div>
           <h3 class="text-base font-bold text-white">${data.video_title}</h3>
-          <p class="text-xs text-slate-300 mt-1 leading-relaxed">${a.summary || ''}</p>
+          <p class="text-xs text-zinc-300 mt-1 leading-relaxed">${a.summary || ''}</p>
         </div>
       </div>
 
@@ -162,15 +162,15 @@ function renderCommentsMiningResults(data) {
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         <!-- Future Topics -->
-        <div class="bg-[#12131b] border border-white/[0.08] rounded-xl p-5 space-y-3">
+        <div class="bg-[#111215] border border-white/[0.08] rounded-xl p-5 space-y-3">
           <div class="flex items-center justify-between">
             <h4 class="font-bold text-sm text-white flex items-center gap-2">
-              <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+              <i data-lucide="sparkles" class="w-4 h-4 text-zinc-400"></i>
               О чем умоляют снять следующее видео
             </h4>
-            <span class="text-[11px] text-purple-400 font-semibold">${topics.length} идей</span>
+            <span class="text-[11px] text-zinc-400 font-mono">${topics.length} идей</span>
           </div>
-          <p class="text-xs text-slate-400">Скрытый спрос, выявленный напрямую из зрительских вопросов</p>
+          <p class="text-xs text-zinc-400">Скрытый спрос, выявленный напрямую из зрительских вопросов</p>
           <div class="space-y-2.5 pt-2">
             ${topicsHtml}
           </div>

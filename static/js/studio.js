@@ -476,8 +476,9 @@ function renderStudioAnalytics(st) {
           datasets: [{
             label: 'Просмотры',
             data: dPoints.map(p => p.views),
-            backgroundColor: 'rgba(16, 185, 129, 0.7)',
-            borderRadius: 4,
+            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+            hoverBackgroundColor: '#ffffff',
+            borderRadius: 3,
             borderSkipped: false
           }]
         },
@@ -495,13 +496,13 @@ function renderStudioAnalytics(st) {
           },
           scales: {
             x: {
-              ticks: { color: '#94a3b8', font: { size: 10 }, maxRotation: 45 },
+              ticks: { color: '#71717a', font: { size: 10 }, maxRotation: 45 },
               grid: { display: false }
             },
             y: {
               beginAtZero: true,
-              ticks: { color: '#94a3b8', font: { size: 10 }, stepSize: 1 },
-              grid: { color: 'rgba(255,255,255,0.06)' }
+              ticks: { color: '#71717a', font: { size: 10 }, stepSize: 1 },
+              grid: { color: 'rgba(255,255,255,0.04)' }
             }
           }
         }
@@ -647,23 +648,23 @@ function openOAuthModal() {
         </div>
 
         <!-- Benefits Card -->
-        <div class="p-3.5 rounded-2xl bg-[#181a26] border border-white/[0.08] text-left space-y-2.5">
-          <div class="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
-            <span>Что откроется после входа:</span>
+        <div class="p-3.5 rounded-2xl bg-[#14151a] border border-white/[0.08] text-left space-y-2.5">
+          <div class="text-[11px] font-semibold text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-zinc-400"></i>
+            <span>Возможности после входа:</span>
           </div>
-          <ul class="text-xs text-slate-300 space-y-1.5 pl-0.5">
+          <ul class="text-xs text-zinc-300 space-y-1.5 pl-0.5">
             <li class="flex items-center gap-2">
-              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+              <i data-lucide="check" class="w-3.5 h-3.5 text-zinc-400 shrink-0"></i>
               <span>Поисковые фразы, по которым находят ваш канал</span>
             </li>
             <li class="flex items-center gap-2">
-              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
+              <i data-lucide="check" class="w-3.5 h-3.5 text-zinc-400 shrink-0"></i>
               <span>Реальное удержание аудитории и демография</span>
             </li>
             <li class="flex items-center gap-2">
-              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
-              <span>Аудит всех 43 видео вашего канала в 1 клик</span>
+              <i data-lucide="check" class="w-3.5 h-3.5 text-zinc-400 shrink-0"></i>
+              <span>Аудит всех видео вашего канала в 1 клик</span>
             </li>
           </ul>
         </div>

@@ -33,43 +33,43 @@
       <button onclick="toggleMobileMenu()" id="mobileMenuBtn" class="md:hidden p-1.5 text-slate-300 hover:text-white hover:bg-white/[0.08] rounded-lg transition-colors" aria-label="Меню">
         <i data-lucide="menu" class="w-5 h-5"></i>
       </button>
-      <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md">
-        <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
+      <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white text-zinc-950 flex items-center justify-center shadow-sm">
+        <i data-lucide="play" class="w-3.5 h-3.5 fill-zinc-950 text-zinc-950 ml-0.5"></i>
       </div>
       <div class="flex items-center gap-1.5">
         <span class="font-bold text-xs sm:text-sm text-white tracking-tight">Growth Studio</span>
-        <span class="hidden sm:inline px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-blue-950/80 text-blue-400 border border-blue-800/60 uppercase">PRO 3.0</span>
+        <span class="hidden sm:inline px-1.5 py-0.5 rounded text-[9px] font-mono font-medium bg-white/[0.08] text-zinc-300 border border-white/[0.12] uppercase">PRO 3.0</span>
       </div>
     </div>
 
     <!-- Smart Omnibar (Universal Auto-Routing Search) -->
     <form onsubmit="handleOmnibarSubmit(event); return false;" class="flex-1 max-w-2xl relative hidden sm:block">
       <div class="relative flex items-center">
-        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none"></i>
+        <i data-lucide="search" class="w-4 h-4 text-zinc-500 absolute left-3.5 pointer-events-none"></i>
         <input 
           type="text" 
           id="omnibarInput" 
           placeholder="Вставьте ссылку на видео, канал @handle или тему для поиска аномалий..." 
-          class="w-full bg-[#161720] border border-white/[0.08] rounded-lg pl-9 pr-24 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500/60 focus:bg-[#1c1d29] transition-all"
+          class="w-full bg-[#14151a] border border-white/[0.08] rounded-lg pl-9 pr-24 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white/20 focus:bg-[#181920] transition-all"
         >
         <div class="absolute right-2 flex items-center gap-1">
-          <kbd class="px-1.5 py-0.5 text-[9px] font-mono text-slate-400 bg-white/[0.06] border border-white/[0.08] rounded">↵ Enter</kbd>
+          <kbd class="px-1.5 py-0.5 text-[9px] font-mono text-zinc-400 bg-white/[0.06] border border-white/[0.08] rounded">↵ Enter</kbd>
         </div>
       </div>
     </form>
 
     <!-- System Status, DB Vault & OAuth -->
     <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-      <div id="dbVaultStatusBadge" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-blue-950/50 border border-blue-800/50 text-blue-300 text-xs font-mono" title="Локальная база данных SQLite активна">
-        <i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i>
+      <div id="dbVaultStatusBadge" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-900 border border-white/[0.08] text-zinc-300 text-xs font-mono" title="Локальная база данных SQLite активна">
+        <i data-lucide="database" class="w-3.5 h-3.5 text-zinc-400"></i>
         <span id="dbVaultStatusText">База данных</span>
       </div>
-      <div class="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-[11px] font-mono">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <div class="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-md bg-zinc-900 border border-white/[0.08] text-zinc-300 text-[11px] font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
         <span id="apiStatusText">YouTube API</span>
       </div>
-      <button onclick="openOAuthModal()" id="headerOAuthBtn" class="px-2.5 sm:px-3 py-1 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-md text-xs font-medium text-slate-200 transition-colors flex items-center gap-1.5">
-        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-400"></i>
+      <button onclick="openOAuthModal()" id="headerOAuthBtn" class="px-2.5 sm:px-3 py-1 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] rounded-md text-xs font-medium text-zinc-200 transition-colors flex items-center gap-1.5">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-zinc-300"></i>
         <span id="headerOAuthText" class="hidden sm:inline">Google OAuth</span>
       </button>
     </div>
@@ -84,18 +84,18 @@
   <div class="flex-1 flex flex-col md:flex-row relative">
 
     <!-- 5 Super-Hubs Sidebar Navigation (Desktop Fixed + Mobile Slide-Over Drawer) -->
-    <aside id="mainSidebar" class="fixed inset-y-0 left-0 z-50 w-72 md:w-60 bg-[#0d0e14] border-r border-white/[0.08] p-3 flex flex-col justify-between shrink-0 transform -translate-x-full md:translate-x-0 md:static md:z-auto transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none overflow-y-auto">
+    <aside id="mainSidebar" class="fixed inset-y-0 left-0 z-50 w-72 md:w-60 bg-[#0c0d0e] border-r border-white/[0.08] p-3 flex flex-col justify-between shrink-0 transform -translate-x-full md:translate-x-0 md:static md:z-auto transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none overflow-y-auto">
       
       <div class="space-y-1">
         <!-- Mobile Drawer Header (visible on mobile only) -->
         <div class="flex items-center justify-between pb-3 mb-2 border-b border-white/[0.08] md:hidden">
           <div class="flex items-center gap-2">
-            <div class="w-6 h-6 rounded-md bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs">
-              <i data-lucide="play" class="w-3 h-3 fill-white"></i>
+            <div class="w-6 h-6 rounded-md bg-white text-zinc-950 flex items-center justify-center text-xs shadow-sm">
+              <i data-lucide="play" class="w-3 h-3 fill-zinc-950 text-zinc-950 ml-0.5"></i>
             </div>
             <span class="font-bold text-xs text-white">Growth Studio</span>
           </div>
-          <button onclick="toggleMobileMenu(false)" class="p-1 text-slate-400 hover:text-white hover:bg-white/[0.08] rounded-lg transition-colors">
+          <button onclick="toggleMobileMenu(false)" class="p-1 text-zinc-400 hover:text-white hover:bg-white/[0.08] rounded-lg transition-colors">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
@@ -120,43 +120,43 @@
           </div>
           <div class="flex-1 min-w-0">
             <div class="truncate">Аналитика каналов</div>
-            <div class="text-[10px] text-slate-400 font-normal">Аудит, Часы, Норма</div>
+            <div class="text-[10px] text-zinc-400 font-normal">Аудит, Часы, Норма</div>
           </div>
         </button>
 
         <!-- 3. AI Creative Studio Hub -->
         <button onclick="switchHub('ai_hub')" id="hubNav_ai_hub" class="hub-nav-btn">
           <div class="hub-icon-wrapper">
-            <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
           </div>
           <div class="flex-1 min-w-0 flex items-center justify-between">
             <div>
               <div class="truncate">AI-Студия & Сценарии</div>
-              <div class="text-[10px] text-slate-400 font-normal">Идеи дня, Сценарии</div>
+              <div class="text-[10px] text-zinc-400 font-normal">Идеи дня, Сценарии</div>
             </div>
-            <span class="px-1.5 py-0.2 bg-purple-950/60 text-purple-300 border border-purple-800/60 text-[9px] font-bold rounded">AI</span>
+            <span class="px-1.5 py-0.2 bg-white/[0.08] text-zinc-300 border border-white/[0.12] text-[9px] font-mono font-medium rounded">AI</span>
           </div>
         </button>
 
         <!-- 4. Trends & Market Hub -->
         <button onclick="switchHub('trends_hub')" id="hubNav_trends_hub" class="hub-nav-btn">
           <div class="hub-icon-wrapper">
-            <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
+            <i data-lucide="flame" class="w-4 h-4"></i>
           </div>
           <div class="flex-1 min-w-0">
             <div class="truncate">Тренды & Ниши</div>
-            <div class="text-[10px] text-slate-400 font-normal">Аномалии, Ключевики</div>
+            <div class="text-[10px] text-zinc-400 font-normal">Аномалии, Ключевики</div>
           </div>
         </button>
 
         <!-- 5. Database & Utilities Hub -->
         <button onclick="switchHub('tools_hub')" id="hubNav_tools_hub" class="hub-nav-btn">
           <div class="hub-icon-wrapper">
-            <i data-lucide="database" class="w-4 h-4 text-teal-400"></i>
+            <i data-lucide="database" class="w-4 h-4"></i>
           </div>
           <div class="flex-1 min-w-0">
             <div class="truncate">База & Инструменты</div>
-            <div class="text-[10px] text-slate-400 font-normal">Watchlist, Массовый</div>
+            <div class="text-[10px] text-zinc-400 font-normal">Watchlist, Массовый</div>
           </div>
         </button>
       </div>
@@ -302,9 +302,9 @@
                     <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
                     <span>AI-Аудит обложки</span>
                   </button>
-                  <button onclick="generateAIThumbnailConcepts()" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white text-xs font-semibold shrink-0 w-full sm:w-auto flex items-center justify-center gap-1.5 shadow-md">
+                  <button onclick="generateAIThumbnailConcepts()" class="btn-secondary text-xs shrink-0 w-full sm:w-auto">
                     <i data-lucide="palette" class="w-3.5 h-3.5"></i>
-                    <span>🎨 3 Концепта & Промпты</span>
+                    <span>3 Концепта & Промпты</span>
                   </button>
                 </div>
               </div>
@@ -1058,60 +1058,60 @@
     </div>
   </div>
 
-  <!-- Non-blocking Top Progress Bar (Linear/YouTube style) -->
-  <div id="loadingState" class="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 animate-pulse z-50 hidden shadow-lg shadow-blue-500/50"></div>
+  <!-- Minimalist Studio Progress Bar (Linear/Vercel style) -->
+  <div id="loadingState" class="fixed top-0 left-0 right-0 h-0.5 bg-white z-50 hidden shadow-sm"></div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-6 right-6 px-4 py-2.5 bg-[#161720] border border-white/[0.15] text-slate-100 text-xs font-semibold rounded-lg shadow-2xl flex items-center gap-2 transform translate-y-16 opacity-0 transition-all duration-200 pointer-events-none z-50">
+  <div id="toast" class="fixed bottom-6 right-6 px-4 py-2.5 bg-[#14151a] border border-white/[0.12] text-zinc-100 text-xs font-semibold rounded-lg shadow-2xl flex items-center gap-2 transform translate-y-16 opacity-0 transition-all duration-200 pointer-events-none z-50">
     <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
     <span id="toastMsg">Скопировано в буфер!</span>
   </div>
 
   <!-- ==========================================================================
-       MOBILE BOTTOM NAVIGATION BAR (iOS / Android App Style)
+       MOBILE BOTTOM NAVIGATION BAR (Clean Obsidian Style)
        ========================================================================== -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-[#0d0e14]/95 backdrop-blur-lg border-t border-white/[0.08] px-2 py-1.5 flex items-center justify-around mobile-bottom-nav">
-    <button onclick="switchHub('video_hub')" id="bottomNav_video_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-blue-400 bg-white/[0.05] transition-colors">
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-[#0c0d0e]/95 backdrop-blur-lg border-t border-white/[0.08] px-2 py-1.5 flex items-center justify-around mobile-bottom-nav">
+    <button onclick="switchHub('video_hub')" id="bottomNav_video_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-white bg-white/[0.08] transition-colors">
       <i data-lucide="video" class="w-4 h-4"></i>
       <span class="text-[9px] font-medium leading-none">Студия</span>
     </button>
-    <button onclick="switchHub('channel_hub')" id="bottomNav_channel_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+    <button onclick="switchHub('channel_hub')" id="bottomNav_channel_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-zinc-400 hover:text-white transition-colors">
       <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
       <span class="text-[9px] font-medium leading-none">Канал</span>
     </button>
-    <button onclick="switchHub('ai_hub')" id="bottomNav_ai_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-slate-400 hover:text-white transition-colors">
-      <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+    <button onclick="switchHub('ai_hub')" id="bottomNav_ai_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-zinc-400 hover:text-white transition-colors">
+      <i data-lucide="sparkles" class="w-4 h-4"></i>
       <span class="text-[9px] font-medium leading-none">AI Идеи</span>
     </button>
-    <button onclick="switchHub('trends_hub')" id="bottomNav_trends_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-slate-400 hover:text-white transition-colors">
-      <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
+    <button onclick="switchHub('trends_hub')" id="bottomNav_trends_hub" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-zinc-400 hover:text-white transition-colors">
+      <i data-lucide="flame" class="w-4 h-4"></i>
       <span class="text-[9px] font-medium leading-none">Тренды</span>
     </button>
-    <button onclick="toggleMobileMenu(true)" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+    <button onclick="toggleMobileMenu(true)" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-zinc-400 hover:text-white transition-colors">
       <i data-lucide="menu" class="w-4 h-4"></i>
-      <span class="text-[9px] font-medium leading-none">Все хабы</span>
+      <span class="text-[9px] font-medium leading-none">Меню</span>
     </button>
   </nav>
 
   <!-- Modular Scripts with Cache-Busting -->
-  <script src="js/core.js?v=26.0"></script>
-  <script src="js/video_seo.js?v=26.0"></script>
-  <script src="js/comments_mining.js?v=26.0"></script>
-  <script src="js/daily_ideas.js?v=26.0"></script>
-  <script src="js/scripts_studio.js?v=26.0"></script>
-  <script src="js/thumbnail_preview.js?v=26.0"></script>
-  <script src="js/transcripts.js?v=26.0"></script>
-  <script src="js/channel_audit.js?v=26.0"></script>
-  <script src="js/best_time.js?v=26.0"></script>
-  <script src="js/outliers.js?v=26.0"></script>
-  <script src="js/harvester.js?v=26.0"></script>
-  <script src="js/history.js?v=26.0"></script>
-  <script src="js/studio.js?v=26.0"></script>
-  <script src="js/ab_testing.js?v=26.0"></script>
-  <script src="js/bulk_tools.js?v=26.0"></script>
-  <script src="js/keywords.js?v=26.0"></script>
-  <script src="js/competitors.js?v=26.0"></script>
-  <script src="js/ai_studio.js?v=26.0"></script>
-  <script src="app.js?v=26.0"></script>
+  <script src="js/core.js?v=27.0"></script>
+  <script src="js/video_seo.js?v=27.0"></script>
+  <script src="js/comments_mining.js?v=27.0"></script>
+  <script src="js/daily_ideas.js?v=27.0"></script>
+  <script src="js/scripts_studio.js?v=27.0"></script>
+  <script src="js/thumbnail_preview.js?v=27.0"></script>
+  <script src="js/transcripts.js?v=27.0"></script>
+  <script src="js/channel_audit.js?v=27.0"></script>
+  <script src="js/best_time.js?v=27.0"></script>
+  <script src="js/outliers.js?v=27.0"></script>
+  <script src="js/harvester.js?v=27.0"></script>
+  <script src="js/history.js?v=27.0"></script>
+  <script src="js/studio.js?v=27.0"></script>
+  <script src="js/ab_testing.js?v=27.0"></script>
+  <script src="js/bulk_tools.js?v=27.0"></script>
+  <script src="js/keywords.js?v=27.0"></script>
+  <script src="js/competitors.js?v=27.0"></script>
+  <script src="js/ai_studio.js?v=27.0"></script>
+  <script src="app.js?v=27.0"></script>
 </body>
 </html>

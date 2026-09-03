@@ -95,11 +95,11 @@ function switchHub(hubKey, targetSubtab = null) {
     const bottomBtn = document.getElementById(`bottomNav_${h}`);
     if (bottomBtn) {
       if (h === hubKey) {
-        bottomBtn.classList.add('text-blue-400', 'bg-white/[0.05]');
-        bottomBtn.classList.remove('text-slate-400');
+        bottomBtn.classList.add('text-white', 'bg-white/[0.08]');
+        bottomBtn.classList.remove('text-zinc-400');
       } else {
-        bottomBtn.classList.remove('text-blue-400', 'bg-white/[0.05]');
-        bottomBtn.classList.add('text-slate-400');
+        bottomBtn.classList.remove('text-white', 'bg-white/[0.08]');
+        bottomBtn.classList.add('text-zinc-400');
       }
     }
   });

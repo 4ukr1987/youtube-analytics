@@ -110,20 +110,25 @@ function renderHistoryChart(title, points) {
           {
             label: 'Подписчики',
             data: subsData,
-            borderColor: '#10b981',
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            borderColor: '#ffffff',
+            backgroundColor: 'rgba(255, 255, 255, 0.04)',
             yAxisID: 'y',
             tension: 0.3,
-            fill: true
+            fill: true,
+            borderWidth: 1.5,
+            pointRadius: 2
           },
           {
             label: 'Всего просмотров',
             data: viewsData,
-            borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderColor: 'rgba(255, 255, 255, 0.4)',
+            backgroundColor: 'transparent',
             yAxisID: 'y1',
             tension: 0.3,
-            fill: false
+            fill: false,
+            borderWidth: 1.5,
+            borderDash: [4, 4],
+            pointRadius: 0
           }
         ]
       },
@@ -132,16 +137,16 @@ function renderHistoryChart(title, points) {
         maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
         plugins: {
-          legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+          legend: { labels: { color: '#a1a1aa', font: { size: 11 } } }
         },
         scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } },
+          x: { ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: 'rgba(255, 255, 255, 0.04)' } },
           y: {
             type: 'linear',
             display: true,
             position: 'left',
-            ticks: { color: '#10b981', font: { size: 10 } },
-            grid: { color: '#1e293b' }
+            ticks: { color: '#a1a1aa', font: { size: 10 } },
+            grid: { color: 'rgba(255, 255, 255, 0.04)' }
           },
           y1: {
             type: 'linear',

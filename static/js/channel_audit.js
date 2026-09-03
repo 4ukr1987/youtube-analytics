@@ -531,21 +531,22 @@ function renderChannelCharts(an) {
           {
             label: 'Просмотры ролика',
             data: viewsData,
-            borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderColor: '#ffffff',
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
             fill: true,
-            tension: 0.35,
-            borderWidth: 2,
-            pointRadius: 3
+            tension: 0.3,
+            borderWidth: 1.5,
+            pointRadius: 2,
+            pointHoverRadius: 4
           },
           {
             label: 'Медиана канала',
             data: medianLine,
-            borderColor: '#f59e0b',
-            borderDash: [5, 5],
+            borderColor: 'rgba(255, 255, 255, 0.35)',
+            borderDash: [4, 4],
             fill: false,
             pointRadius: 0,
-            borderWidth: 2
+            borderWidth: 1.5
           }
         ]
       },
@@ -553,11 +554,11 @@ function renderChannelCharts(an) {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+          legend: { labels: { color: '#a1a1aa', font: { size: 11 } } }
         },
         scales: {
-          x: { ticks: { display: false }, grid: { color: '#1e293b' } },
-          y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } }
+          x: { ticks: { display: false }, grid: { color: 'rgba(255, 255, 255, 0.04)' } },
+          y: { ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: 'rgba(255, 255, 255, 0.04)' } }
         }
       }
     });
@@ -583,8 +584,9 @@ function renderChannelCharts(an) {
         datasets: [{
           label: 'Кол-во публикаций',
           data: dayCounts,
-          backgroundColor: '#10b981',
-          borderRadius: 4
+          backgroundColor: 'rgba(255, 255, 255, 0.85)',
+          hoverBackgroundColor: '#ffffff',
+          borderRadius: 3
         }]
       },
       options: {
@@ -592,8 +594,8 @@ function renderChannelCharts(an) {
         maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 11 } }, grid: { display: false } },
-          y: { ticks: { color: '#94a3b8', stepSize: 1 }, grid: { color: '#1e293b' } }
+          x: { ticks: { color: '#71717a', font: { size: 11 } }, grid: { display: false } },
+          y: { ticks: { color: '#71717a', font: { size: 10 }, stepSize: 1 }, grid: { color: 'rgba(255, 255, 255, 0.04)' } }
         }
       }
     });

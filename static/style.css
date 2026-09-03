@@ -6,31 +6,33 @@
 :root {
   color-scheme: dark;
 
-  /* Surface & Base Palette */
-  --bg-app: #08090d;
-  --bg-sidebar: #0d0e14;
-  --bg-card: #12131b;
-  --bg-card-hover: #171822;
-  --bg-input: #161720;
-  --bg-input-focus: #1c1d29;
+  /* Surface & Base Palette (Studio Obsidian & Platinum) */
+  --bg-app: #09090b;
+  --bg-sidebar: #0c0d0e;
+  --bg-header: rgba(12, 13, 14, 0.85);
+  --bg-card: #111215;
+  --bg-card-hover: #15161b;
+  --bg-card-active: #181a21;
+  --bg-input: #14151a;
+  --bg-input-focus: #181920;
   
-  /* Borders & Dividers */
+  /* Hairline Borders & Dividers */
   --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-medium: rgba(255, 255, 255, 0.12);
-  --border-strong: rgba(255, 255, 255, 0.18);
-  --border-focus: rgba(59, 130, 246, 0.6);
+  --border-medium: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-focus: rgba(255, 255, 255, 0.28);
 
-  /* Typography */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  /* Typography Hierarchy */
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-dim: #52525b;
 
-  /* Functional Accents */
-  --accent-primary: #3b82f6;
+  /* Functional Accents (Restrained & Purposeful, No Rainbow Neon) */
+  --accent-blue: #3b82f6;
   --accent-emerald: #10b981;
   --accent-amber: #f59e0b;
   --accent-rose: #f43f5e;
-  --accent-purple: #a855f7;
 }
 
 body {
@@ -39,6 +41,7 @@ body {
   color: var(--text-primary);
   letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom Minimalist Scrollbars */
@@ -175,28 +178,51 @@ body {
 }
 
 /* ==========================================================================
-   Interactive Buttons & Controls (Refined Linear Aesthetic)
+   Interactive Buttons & Controls (Linear / Apple Pro Grade: Clean & Tactile)
    ========================================================================== */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 14px;
-  background: linear-gradient(180deg, #2563eb, #1d4ed8);
-  color: #ffffff;
+  padding: 6px 14px;
+  background: #ffffff;
+  color: #09090b;
   font-size: 12px;
   font-weight: 600;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 .btn-primary:hover {
-  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  background: #e4e4e7;
+  border-color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f4f4f5;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
 }
 
 .btn-emerald {
@@ -204,21 +230,20 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 14px;
-  background: linear-gradient(180deg, #059669, #047857);
-  color: #ffffff;
+  padding: 6px 13px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
   font-size: 12px;
   font-weight: 600;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  border: 1px solid rgba(16, 185, 129, 0.28);
   transition: all 0.15s ease;
   cursor: pointer;
 }
 .btn-emerald:hover {
-  background: linear-gradient(180deg, #10b981, #059669);
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.45);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
 }
 
 .btn-amber {
@@ -226,21 +251,20 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 14px;
-  background: linear-gradient(180deg, #d97706, #b45309);
-  color: #ffffff;
+  padding: 6px 13px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
   font-size: 12px;
   font-weight: 600;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  border: 1px solid rgba(245, 158, 11, 0.28);
   transition: all 0.15s ease;
   cursor: pointer;
 }
 .btn-amber:hover {
-  background: linear-gradient(180deg, #f59e0b, #d97706);
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.45);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
 }
 
 .btn-rose {
@@ -248,21 +272,20 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 14px;
-  background: linear-gradient(180deg, #e11d48, #be123c);
-  color: #ffffff;
+  padding: 6px 13px;
+  background: rgba(244, 63, 94, 0.12);
+  color: #fb7185;
   font-size: 12px;
   font-weight: 600;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  border: 1px solid rgba(244, 63, 94, 0.28);
   transition: all 0.15s ease;
   cursor: pointer;
 }
 .btn-rose:hover {
-  background: linear-gradient(180deg, #f43f5e, #e11d48);
+  background: rgba(244, 63, 94, 0.2);
+  border-color: rgba(244, 63, 94, 0.45);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.35);
 }
 
 .btn-purple {
@@ -270,21 +293,20 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 14px;
-  background: linear-gradient(180deg, #7c3aed, #6d28d9);
-  color: #ffffff;
+  padding: 6px 13px;
+  background: rgba(168, 85, 247, 0.12);
+  color: #c084fc;
   font-size: 12px;
   font-weight: 600;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  border: 1px solid rgba(168, 85, 247, 0.28);
   transition: all 0.15s ease;
   cursor: pointer;
 }
 .btn-purple:hover {
-  background: linear-gradient(180deg, #8b5cf6, #7c3aed);
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.45);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
 }
 
 /* Viewport Buttons & Stress Test Toggles */

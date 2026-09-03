@@ -39,9 +39,13 @@ async def get_oauth_status():
 
 
 @router.get("/api/oauth/login-url")
-async def get_oauth_login_url(redirect_uri: str = Query("http://127.0.0.1:8000/api/oauth/callback")):
+async def get_oauth_login_url(request: Request, redirect_uri: Optional[str] = None):
     """Generates real Google OAuth consent URL"""
     try:
+        if not redirect_uri:
+            proto = request.headers.get("x-forwarded-proto", request.url.scheme)
+            host = request.headers.get("x-forwarded-host", request.url.netloc)
+            redirect_uri = f"{proto}://{host}/api/oauth/callback"
         auth_data = studio_service.get_auth_url(redirect_uri=redirect_uri)
         return {"status": "success", "data": auth_data}
     except Exception as e:

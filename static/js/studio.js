@@ -526,7 +526,8 @@ function openMyChannelAudit() {
 
 async function startGoogleOAuthLogin() {
   try {
-    const res = await fetch('/api/oauth/login-url');
+    const redirectUri = window.location.origin + '/api/oauth/callback';
+    const res = await fetch('/api/oauth/login-url?redirect_uri=' + encodeURIComponent(redirectUri));
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail);
 

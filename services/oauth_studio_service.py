@@ -14,6 +14,7 @@ Fetches comprehensive multi-dimensional live YouTube Studio metrics:
 
 import os
 import json
+import base64
 from datetime import date, timedelta
 from typing import Dict, List, Any, Optional
 from googleapiclient.discovery import build
@@ -145,25 +146,20 @@ class StudioAnalyticsService:
                 "token_uri": "https://oauth2.googleapis.com/token"
             }
         }
-        self.flow = Flow.from_client_config(client_config, scopes=SCOPES, redirect_uri=redirect_uri)
+        self.flow = Flow.from_client_config(
+            client_config, 
+            scopes=SCOPES, 
+            redirect_uri=redirect_uri,
+            autogenerate_code_verifier=False
+        )
         auth_url, state = self.flow.authorization_url(prompt='consent', access_type='offline', include_granted_scopes='true')
-        
-        # Persist code_verifier to disk
-        code_verifier = getattr(self.flow, 'code_verifier', None)
-        if code_verifier:
-            try:
-                os.makedirs(os.path.dirname(VERIFIER_PATH), exist_ok=True)
-                with open(VERIFIER_PATH, 'w', encoding='utf-8') as f:
-                    f.write(code_verifier)
-            except Exception:
-                pass
 
         return {
             "auth_url": auth_url,
             "is_configured": True
         }
 
-    def exchange_code_for_token(self, code: str, redirect_uri: str = "http://127.0.0.1:8000/api/oauth/callback") -> Dict[str, Any]:
+    def exchange_code_for_token(self, code: str, redirect_uri: str = "http://127.0.0.1:8000/api/oauth/callback", state: Optional[str] = None) -> Dict[str, Any]:
         """Exchanges authorization code for tokens and saves credentials to disk"""
         if not HAS_OAUTH_LIB or not self.client_id:
             raise ValueError("OAuth не сконфигурирован")
@@ -177,18 +173,12 @@ class StudioAnalyticsService:
             }
         }
         
-        flow = Flow.from_client_config(client_config, scopes=SCOPES, redirect_uri=redirect_uri)
-        
-        # Restore PKCE code_verifier
-        code_verifier = None
-        if hasattr(self, 'flow') and self.flow and getattr(self.flow, 'code_verifier', None):
-            code_verifier = self.flow.code_verifier
-        elif os.path.exists(VERIFIER_PATH):
-            try:
-                with open(VERIFIER_PATH, 'r', encoding='utf-8') as f:
-                    code_verifier = f.read().strip()
-            except Exception:
-                pass
+        flow = Flow.from_client_config(
+            client_config, 
+            scopes=SCOPES, 
+            redirect_uri=redirect_uri,
+            autogenerate_code_verifier=False
+        )
 
         try:
             flow.fetch_token(code=code)
@@ -202,8 +192,6 @@ class StudioAnalyticsService:
                 'redirect_uri': redirect_uri,
                 'grant_type': 'authorization_code'
             }
-            if code_verifier:
-                token_payload['code_verifier'] = code_verifier
             resp = requests.post("https://oauth2.googleapis.com/token", data=token_payload, timeout=10)
             if resp.status_code == 200:
                 t_json = resp.json()

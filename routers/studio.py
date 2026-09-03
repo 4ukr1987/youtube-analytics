@@ -54,7 +54,7 @@ async def get_oauth_login_url(request: Request, redirect_uri: Optional[str] = No
 
 @router.get("/api/oauth/callback")
 @router.get("/auth/callback")
-async def oauth_callback(request: Request, code: Optional[str] = None, error: Optional[str] = None):
+async def oauth_callback(request: Request, code: Optional[str] = None, state: Optional[str] = None, error: Optional[str] = None):
     """Google OAuth redirect endpoint"""
     if error:
         return RedirectResponse(url="/?oauth_error=" + error)
@@ -66,7 +66,7 @@ async def oauth_callback(request: Request, code: Optional[str] = None, error: Op
         proto = request.headers.get("x-forwarded-proto", "https" if "run.app" in str(request.url) else request.url.scheme)
         host = request.headers.get("x-forwarded-host", request.url.netloc)
         redirect_uri = f"{proto}://{host}/api/oauth/callback"
-        channel_info = studio_service.exchange_code_for_token(code=code, redirect_uri=redirect_uri)
+        channel_info = studio_service.exchange_code_for_token(code=code, redirect_uri=redirect_uri, state=state)
         return RedirectResponse(url="/?oauth=success")
     except Exception as e:
         return RedirectResponse(url=f"/?oauth_error={str(e)}")
